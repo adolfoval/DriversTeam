@@ -1,6 +1,35 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { consultarDatabase } from '../../config/Firebase'
 
 function ListarProductos() {
+
+
+    const [listaProductos, setListaProductos] = useState([])
+    const [showNewProduct, setShowNewProduct] = useState(false);
+
+    useEffect(() => {
+        cargarDatos()
+    }, [])
+
+    const cargarDatos = async () => {
+        // console.log('Entro..!');
+        const listaTemporal = await consultarDatabase('productos')
+        // console.log(listaTemporal);
+        setListaProductos(listaTemporal)
+    }
+
+
+    const handleModalClose = (e) => {
+        setShowNewProduct(false);
+      };
+      
+      const handleModalOpen = () => {
+        setShowNewProduct(true);
+      };
+
+
+
     return (
         <div>
             <div className="container align-self-center container-sm">
@@ -31,9 +60,31 @@ function ListarProductos() {
                             <th scope="col">Actualizar</th>
                         </tr>
                     </thead>
-                    <tbody id="tableBody">
+                    {
+                        listaProductos.map((producto, index) => {
+                            return (
+                            <tr key={producto.id}>
+                                <th scope="row">{index + 1}</th>
+                                <td>{producto.descripcion}  </td>
+                                <td>{producto.valorUnitario}</td>
+                                <td>{producto.estado}</td>
+                                <td>
+                                {                               
+                                    <Link to={`/productos/${producto.id}`}>
+                                        <button className="btn btn-primary btn-sm">Editar</button>
+                                    </Link>
+                                 }
+                                {                               
+                                    <Link to={`/productos/${producto.id}/delete`}>
+                                        <button className="btn btn-danger btn-sm">Eliminar</button>
+                                    </Link>
+                                 }
+                                </td>
+                            </tr>)
+                        })
+                    }
 
-                    </tbody>
+
                 </table>
 
             </div>
