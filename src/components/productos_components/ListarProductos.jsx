@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { consultarDatabase } from '../../config/Firebase'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPenSquare, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 function ListarProductos() {
 
@@ -57,7 +59,7 @@ function ListarProductos() {
                             <th scope="col">Descripción</th>
                             <th scope="col">Valor Unitario</th>
                             <th scope="col">Estado</th>
-                            <th scope="col">Actualizar</th>
+                            <th scope="col">Accion</th>
                         </tr>
                     </thead>
                     {
@@ -71,12 +73,12 @@ function ListarProductos() {
                                 <td>
                                 {                               
                                     <Link to={`/productos/${producto.id}`}>
-                                        <button className="btn btn-primary btn-sm">Editar</button>
+                                        <button className="btn btn-outline-primary btn-sm" title="Editar"><FontAwesomeIcon icon={faPenSquare}/></button>
                                     </Link>
                                  }
                                 {                               
                                     <Link to={`/productos/${producto.id}/delete`}>
-                                        <button className="btn btn-danger btn-sm">Eliminar</button>
+                                        <button className="btn btn-outline-danger btn-sm" title="Eliminar"><FontAwesomeIcon icon={faTimes}/></button>
                                     </Link>
                                  }
                                 </td>

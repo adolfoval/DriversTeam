@@ -1,7 +1,7 @@
 import React from 'react';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPizzaSlice, faBeer} from "@fortawesome/free-solid-svg-icons";
-import {Link} from "react-router-dom";
+import {Link, NavLink} from "react-router-dom";
 
 
 function NavBar() {
@@ -14,32 +14,27 @@ function NavBar() {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-                        <a className="navbar-brand" href="/">Driver's Pub <FontAwesomeIcon icon={faBeer}/><FontAwesomeIcon icon ={faPizzaSlice} className="fa-pulse" /></a>
+                        <NavLink activeClassName="active" className="navbar-brand" to="">Driver's Pub <FontAwesomeIcon icon={faBeer}/><FontAwesomeIcon icon ={faPizzaSlice} className="fa-pulse" /></NavLink>
                         <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <Link className="nav-link" aria-current="page" to="/Inicio">Inicio</Link>
+                                <NavLink activeClassName="active" className="nav-link" aria-current="page" to="/Inicio">Inicio</NavLink>
                             </li>
 
-                            <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" href="/" id="navbarScrollingDropdown" data-bs-toggle="dropdown"
-                                    aria-expanded="false"> Administrar productos </a>
-                                <ul className="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                                    {/* <li><Link className="dropdown-item" to="/RegistrarProductos">Registrar producto</Link></li> */}
-                                    <li><Link className="dropdown-item" to="ListarProductos">Listar productos</Link></li>
-                                </ul>
+                            <li className="navbar-nav mx-auto mb-2 mb-lg-0">
+                                <NavLink activeClassName="active" to="/ListarProductos" className="nav-link" aria-expanded="false"> Administrar productos </NavLink>
                             </li>
 
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="/" id="navbarScrollingDropdown" data-bs-toggle="dropdown"
                                     aria-expanded="false">Administrar ventas</a>
                                 <ul className="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                                    <li><Link className="dropdown-item" to="/RegistrarVentas">Registrar venta</Link></li>
+                                    <li><Link activeClassName="active"  className="dropdown-item" to="/RegistrarVentas">Registrar venta</Link></li>
                                     <li><Link className="dropdown-item" to="/ListarVentas">Listar ventas</Link></li>
                                 </ul>
                             </li>
 
                             <li className="nav-item">
-                                <Link className="nav-link active" to="/ListarUsuarios">Administrar usuarios</Link>
+                                <NavLink activeClassName="active" className="nav-link" to="/ListarUsuarios">Administrar usuarios</NavLink>
                             </li>
 
 

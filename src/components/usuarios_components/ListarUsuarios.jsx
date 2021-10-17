@@ -29,7 +29,7 @@ function Usuarios() {
                                 <td>-</td>
                                 <td>Pendiente</td>
                                 <td>
-                                    <button type="button" className="btn btn-outline-dark"
+                                    <button type="button" className="btn btn-outline-dark" title="Modificar"
                                         data-bs-toggle="modal" data-bs-target="#exampleModal"
                                         data-user="Larry Loom" data-bs-whatever="admin2@gmail.com">
                                         <FontAwesomeIcon icon={faPenSquare} />
