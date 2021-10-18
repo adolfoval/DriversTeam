@@ -44,8 +44,8 @@ function ListarProductos() {
 
                 <br />
 
-                <button type="button" className="btn btn-outline-dark  btn-sm" data-bs-toggle="modal" data-bs-target="#modalRegistroProducto" user="Cerveza"
-                    data-bs-whatever="$ 12.000">Registro producto</button>
+                <button type="button" className="btn btn-outline-dark  btn-sm" data-bs-toggle="modal" data-bs-target="#modalRegistroProducto" user
+                    data-bs-whatever>Registro producto</button>
 
                 <br />
 
@@ -70,12 +70,12 @@ function ListarProductos() {
                                 <td>{producto.estado}</td>
                                 <td>
                                 {                               
-                                    <Link to={`/productos/${producto.id}`}>
+                                    <Link to={`/ListarProductos/${producto.id}`}>
                                         <button className="btn btn-primary btn-sm">Editar</button>
                                     </Link>
                                  }
                                 {                               
-                                    <Link to={`/productos/${producto.id}/delete`}>
+                                    <Link to={`/ListarProductos/delete/${producto.id}`}>
                                         <button className="btn btn-danger btn-sm">Eliminar</button>
                                     </Link>
                                  }

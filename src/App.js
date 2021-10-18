@@ -7,7 +7,9 @@ import ListarUsuarios from './components/usuarios_components/ListarUsuarios';
 import RegistrarVentas from './components/ventas_componnets/RegistrarVentas';
 import ListarVentas from './components/ventas_componnets/ListarVentas';
 import ListarProductos from './components/productos_components/ListarProductos';
+import EliminarProductos from './components/productos_components/EliminarProductos';
 import Error404 from './components/Error404';
+
 
 
 
@@ -25,6 +27,7 @@ function App() {
           <Route path="/RegistrarVentas" exact component ={RegistrarVentas}/>
           <Route path="/ListarVentas" exact component ={ListarVentas}/>
           <Route path="/ListarProductos" exact component ={ListarProductos}/>
+          <Route path="/ListarProductos/delete/:id" component ={EliminarProductos}/>
           <Route path="/Error404" exact component ={Error404}/>
         </Switch>
       </Router>
