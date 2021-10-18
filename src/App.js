@@ -27,8 +27,12 @@ function App() {
           <Route path="/RegistrarVentas" exact component ={RegistrarVentas}/>
           <Route path="/ListarVentas" exact component ={ListarVentas}/>
           <Route path="/ListarProductos" exact component ={ListarProductos}/>
+<<<<<<< HEAD
           <Route path="/ListarProductos/delete/:id" component ={EliminarProductos}/>
           <Route path="/Error404" exact component ={Error404}/>
+=======
+          <Route path="*" component ={Error404}/>
+>>>>>>> f2b87a347b9ed785dea497dc741b1f8a88aae939
         </Switch>
       </Router>
 
