@@ -1,23 +1,25 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPizzaSlice, faBeer } from "@fortawesome/free-solid-svg-icons";
-import { Link, NavLink, useHistory} from "react-router-dom";
-import {logOutUsuario} from "../config/Firebase";
+import { Link, NavLink, useHistory } from "react-router-dom";
+import { logOutUsuario } from "../config/Firebase";
 
 
 function NavBar(props) {
 
     let history = useHistory();
+    const rol = JSON.parse(localStorage.getItem("rol"));
 
-    const handleSalir = (event)=>{
+
+    const handleSalir = (event) => {
         event.preventDefault();
-        
+
         //console.log("Me salix2");
         props.func.setLog(false);
         history.replace("/");
         window.localStorage.clear();
         logOutUsuario();
-        
+
     }
 
     return (
@@ -36,9 +38,15 @@ function NavBar(props) {
                                 <NavLink className="nav-link" aria-current="page" to="/">Inicio</NavLink>
                             </li>
 
-                            <li className="navbar-nav mx-auto mb-2 mb-lg-0">
+                            {rol === "Vendedor" ? <li className="navbar-nav mx-auto mb-2 mb-lg-0 d-none">
                                 <NavLink activeClassName="active" to="/ListarProductos" className="nav-link" aria-expanded="false"> Administrar productos </NavLink>
                             </li>
+                                :
+                                <li className="navbar-nav mx-auto mb-2 mb-lg-0">
+                                    <NavLink activeClassName="active" to="/ListarProductos" className="nav-link" aria-expanded="false"> Administrar productos </NavLink>
+                                </li>
+                            }
+
 
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="/" id="navbarScrollingDropdown" data-bs-toggle="dropdown"
@@ -49,9 +57,14 @@ function NavBar(props) {
                                 </ul>
                             </li>
 
-                            <li className="nav-item">
+                            {   rol === "Vendedor" ?
+                                <li className="nav-item d-none">
                                 <NavLink activeClassName="active" className="nav-link" to="/ListarUsuarios">Administrar usuarios</NavLink>
                             </li>
+                            :
+                            <li className="nav-item">
+                                <NavLink activeClassName="active" className="nav-link" to="/ListarUsuarios">Administrar usuarios</NavLink>
+                            </li>}
 
 
                         </ul>

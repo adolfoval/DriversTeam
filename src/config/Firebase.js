@@ -136,9 +136,9 @@ export const loginUsuario = async (email, password) => {
 
         return credencialesUsuario.user
 
-
     } catch (e) {
-        alert(new Error(e));
+
+        console.log(new Error(e),"a");
         <Route exact path="/Login">
             <Redirect to="/Login" />
         </Route>

@@ -3,7 +3,7 @@ import { eliminarDocumentoDatabase } from '../../config/Firebase'
 import { useParams, Redirect } from "react-router-dom";
 import Swal from 'sweetalert2'
 
-function EliminarProductos() {
+async function EliminarProductos() {
     let id = useParams();
     
     const eliminar = await eliminarDocumentoDatabase ("productos",id.id)

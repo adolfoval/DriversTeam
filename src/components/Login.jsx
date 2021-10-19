@@ -3,7 +3,7 @@ import "./css/login.css"
 import { useHistory } from "react-router-dom"
 import { consultarDatabase, crearUsuario, loginUsuario } from "../config/Firebase"
 import { useInfo } from "../useInfo";
-
+import Swal from "sweetalert2";
 
 
 
@@ -15,6 +15,7 @@ function Login(props) {
     const history = useHistory();
     const [correoUser, setCorreo] = useInfo("correo", "");
     const [id, setId] = useInfo("id", "");
+    const [rol,setRol] = useInfo("rol", "");
 
 
     const handleGoogle = (event) => {
@@ -27,7 +28,23 @@ function Login(props) {
         crearUsuario(correo, contrasenna);
         SetCorre("");
         SetContrassena("");
-        alert("Usuario registrado");
+
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            icon: 'success',
+            title: 'Registro exitoso'
+        })
 
     }
 
@@ -46,19 +63,67 @@ function Login(props) {
             //console.log(credenciales.email);
             setId(credenciales.uid);
             setCorreo(credenciales.email);
-            props.func.setLog(true);
-            history.replace("/");
+
             const doc = await consultarDatabase("usuarios");
             const info = doc.filter((document) => (
                 document.id === credenciales.uid
             ));
-            console.log(info[0].rol,info[0].estado)
+            //console.log(info[0].rol, info[0].estado);
+
+            if (info[0].estado !== "Autorizado") {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: 'Aun no esta autorizado su acceso.',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                return
+            } else {
+                setRol(info[0].rol);
+                props.func.setLog(true);
+                history.replace("/");
+            }
+
+
             //Solo queda guardarlos en local storage y limitar el renderizado del menu de acuerdo al rol
             //y permitir o no el login si esta autorizado o no.
-            alert("Logueado");
+            // alert("Logueado");
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: 'success',
+                title: 'Logueado'
+            })
 
         } else {
-            alert("No se ha logueado");
+            // alert("No se ha logueado");
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: 'error',
+                title: 'No se ha podido completar el proceso, verifique el usuario o la contraseña'
+            })
         }
 
         //console.log(credenciales.toJSON());
