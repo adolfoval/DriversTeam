@@ -13,11 +13,11 @@ function Ventas() {
                 {/* <h5>Passport <input type="radio" name="Id" className="form-check-input d-inline" /></h5> */}
                 <div className="form-check-inline">
                     <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"/>
-                    <label className ="form-check-label" for="inlineRadio1">CC</label>
+                    <label className ="form-check-label" htmlFor="inlineRadio1">CC</label>
                 </div>
                 <div className="form-check-inline mb-3">
                     <input className="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"/>
-                    <label className ="form-check-label" for="inlineRadio2">Passport</label>
+                    <label className ="form-check-label" htmlFor="inlineRadio2">Passport</label>
                 </div>
 
                 <input type="text" placeholder="id" className="form-control w-25 mb-3" />

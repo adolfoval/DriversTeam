@@ -43,7 +43,7 @@ function Usuarios() {
             </div>
 
             {/* <!-- Modal --> */}
-            <div className="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            <div className="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1"
                 aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
                 <div className="modal-dialog">
                     <div className="modal-content">
@@ -54,11 +54,11 @@ function Usuarios() {
                         <div className="modal-body">
                             <form>
                                 <div className="mb-3">
-                                    <label for="recipient-name" className="col-form-label">Correo:</label>
+                                    <label htmlFor="recipient-name" className="col-form-label">Correo:</label>
                                     <input type="text" className="form-control" id="recipient-name" readonly />
                                 </div>
                                 <div className="mb-3">
-                                    <label for="estado" className="col-form-label">Estado:</label>
+                                    <label htmlFor="estado" className="col-form-label">Estado:</label>
                                     <select className="form-select" id="estado" aria-label="Default select example">
                                         <option selected disabled value="Ninguno">Seleccione un estado</option>
                                         <option value="Pendiente">Pendiente</option>
@@ -67,7 +67,7 @@ function Usuarios() {
                                     </select>
                                 </div>
                                 <div className="mb-3">
-                                    <label for="rol" className="col-form-label">Rol:</label>
+                                    <label htmlFor="rol" className="col-form-label">Rol:</label>
                                     <select className="form-select" id="rol" aria-label="Default select example">
                                         <option selected disabled value="Ninguno">Seleccione un rol</option>
                                         <option value="Administrador" id="Administrador">Administrador</option>

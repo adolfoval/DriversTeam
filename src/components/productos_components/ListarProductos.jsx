@@ -19,6 +19,7 @@ function ListarProductos() {
         const listaTemporal = await consultarDatabase('productos')
         // console.log(listaTemporal);
         setListaProductos(listaTemporal)
+        
     }
 
 
@@ -29,7 +30,6 @@ function ListarProductos() {
       const handleModalOpen = () => {
         setShowNewProduct(true);
       };
-
 
 
     return (
@@ -62,41 +62,31 @@ function ListarProductos() {
                             <th scope="col">Accion</th>
                         </tr>
                     </thead>
-                    {
-                        listaProductos.map((producto, index) => {
-                            return (
-                            <tr key={producto.id}>
-                                <th scope="row">{index + 1}</th>
-                                <td>{producto.descripcion}  </td>
-                                <td>{producto.valorUnitario}</td>
-                                <td>{producto.estado}</td>
-                                <td>
-                                {                               
-<<<<<<< HEAD
-                                    <Link to={`/ListarProductos/${producto.id}`}>
-                                        <button className="btn btn-primary btn-sm">Editar</button>
-                                    </Link>
-                                 }
-                                {                               
-                                    <Link to={`/ListarProductos/delete/${producto.id}`}>
-                                        <button className="btn btn-danger btn-sm">Eliminar</button>
-=======
-                                    <Link to={`/productos/${producto.id}`}>
-                                        <button className="btn btn-outline-primary btn-sm" title="Editar"><FontAwesomeIcon icon={faPenSquare}/></button>
-                                    </Link>
-                                 }
-                                {                               
-                                    <Link to={`/productos/${producto.id}/delete`}>
-                                        <button className="btn btn-outline-danger btn-sm" title="Eliminar"><FontAwesomeIcon icon={faTimes}/></button>
->>>>>>> f2b87a347b9ed785dea497dc741b1f8a88aae939
-                                    </Link>
-                                 }
-                                </td>
-                            </tr>)
-                        })
-                    }
-
-
+                    <tbody>
+                        {
+                            listaProductos.map((producto, index) => {
+                                return (
+                                <tr key={producto.id}>
+                                    <th scope="row">{index + 1}</th>
+                                    <td>{producto.descripcion}  </td>
+                                    <td>{producto.valorUnitario}</td>
+                                    <td>{producto.estado}</td>
+                                    <td>
+                                    {                               
+                                        <Link to={`/ListarProductos/${producto.id}`}>
+                                            <button className="btn btn-outline-primary btn-sm" title="Editar"><FontAwesomeIcon icon={faPenSquare}/></button>
+                                        </Link>
+                                    }
+                                    {                               
+                                        <Link to={`/ListarProductos/delete/${producto.id}`}>
+                                            <button className="btn btn-outline-danger btn-sm" title="Eliminar"><FontAwesomeIcon icon={faTimes}/></button>
+                                        </Link>
+                                    }
+                                    </td>
+                                </tr>)
+                            })
+                        }
+                    </tbody>
                 </table>
 
             </div>
@@ -107,7 +97,7 @@ Launch static backdrop modal
 </button>--> */}
 
             {/* <!-- Modal editar--> */}
-            <div className="modal fade" id="modalEditar" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            <div className="modal fade" id="modalEditar" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1"
                 aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
                 <div className="modal-dialog">
                     <div className="modal-content">
@@ -118,12 +108,12 @@ Launch static backdrop modal
                         <div className="modal-body">
                             <form>
                                 <div className="mb-3">
-                                    <label for="usuario-name" className="col-form-label">Valor Unitario:</label>
+                                    <label htmlFor="usuario-name" className="col-form-label">Valor Unitario:</label>
                                     <input type="text" className="form-control" id="usuario-name" />
                                 </div>
 
                                 <div className="mb-3">
-                                    <label for="message-text" className="col-form-label">Estado:</label>
+                                    <label htmlFor="message-text" className="col-form-label">Estado:</label>
                                     <select className="form-select" id="message-tex" aria-label="Default select example">
                                         <option selected disabled>Seleccione un estado</option>
                                         <option value="1">Disponible</option>
@@ -142,7 +132,7 @@ Launch static backdrop modal
             </div>
 
             {/* <!-- Modal registro producto--> */}
-            <div className="modal fade" id="modalRegistroProducto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            <div className="modal fade" id="modalRegistroProducto" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1"
                 aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
                 <div className="modal-dialog">
                     <div className="modal-content">
@@ -154,16 +144,16 @@ Launch static backdrop modal
                             <form id="formulario-registro-producto">
 
                                 <div className="mb">
-                                    <label for="descripcion" className="col-form-label">Descripción del Producto:</label>
+                                    <label htmlFor="descripcion" className="col-form-label">Descripción del Producto:</label>
                                     <input type="text" className="form-control" id="descripcion" />
                                 </div>
                                 <div className="mb-3">
-                                    <label for="valor unit" className="col-form-label">Valor Unitario:</label>
+                                    <label htmlFor="valor unit" className="col-form-label">Valor Unitario:</label>
                                     <input type="number" className="form-control" id="valor-unitario" />
                                 </div>
 
                                 <div className="mb-3">
-                                    <label for="message-text" className="col-form-label">Estado:</label>
+                                    <label htmlFor="message-text" className="col-form-label">Estado:</label>
                                     <select className="form-select" id="estadoProducto" aria-label="Default select example">
                                         <option selected disabled>Seleccione un estado</option>
                                         <option value="Disponible">Disponible</option>

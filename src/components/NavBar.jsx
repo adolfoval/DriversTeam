@@ -1,10 +1,36 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPizzaSlice, faBeer} from "@fortawesome/free-solid-svg-icons";
 import {Link, NavLink} from "react-router-dom";
+import { datosUsuario, onAuthStateChanged } from '../config/Firebase'
 
 
 function NavBar() {
+
+
+     const [usuario, setUsuario] = useState({displayName:undefined,email:undefined})
+
+
+/*     useEffect(() => {
+        consultaUsuario()
+    }, [])
+
+    const consultaUsuario = async () => {
+        const user = await datosUsuario() 
+        setUsuario(user)
+    }  */
+
+
+    useEffect(() => {
+        cargarDatos()
+    }, [])
+
+    const cargarDatos = async () => {
+        setUsuario(await datosUsuario()) 
+        console.log("usuario ",usuario);
+    }
+
+    
     return (
         <div>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -28,8 +54,8 @@ function NavBar() {
                                 <a className="nav-link dropdown-toggle" href="/" id="navbarScrollingDropdown" data-bs-toggle="dropdown"
                                     aria-expanded="false">Administrar ventas</a>
                                 <ul className="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                                    <li><Link activeClassName="active"  className="dropdown-item" to="/RegistrarVentas">Registrar venta</Link></li>
-                                    <li><Link className="dropdown-item" to="/ListarVentas">Listar ventas</Link></li>
+                                    <li><NavLink activeClassName="active"  className="dropdown-item" to="/RegistrarVentas">Registrar venta</NavLink></li>
+                                    <li><NavLink className="dropdown-item" to="/ListarVentas">Listar ventas</NavLink></li>
                                 </ul>
                             </li>
 
@@ -41,13 +67,18 @@ function NavBar() {
                         </ul>
                         <form className="d-flex">
                             <li className="nav-item dropdown">
+                                
                                 <a className="nav-link dropdown-toggle" href="/" id="navbarDropdownMenuLink" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false"> admin1@gmail.com</a>
+                                    data-bs-toggle="dropdown" aria-expanded="false">  { usuario ? usuario.displayName : "Login"  } </a>
                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <li><Link className="dropdown-item" to="">Preferencias</Link></li>
                                     <li><Link className="dropdown-item" to="">Salir</Link></li>
+
                                 </ul>
+                                <h7 class="text-white bg-dark">{usuario ? usuario.email : ""}</h7>
+                                
                             </li>
+                            
                         </form>
                     </div>
                 </div>

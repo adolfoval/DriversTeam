@@ -3,7 +3,7 @@ import { initializeApp } from 'firebase/app'
 // Referencia a la base de datos
 import { getFirestore } from 'firebase/firestore'
 // Referencia al paquete de autenticacion
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from 'firebase/auth'
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 // Metodos de interaccion con la base de datos
 import { addDoc, collection, getDocs, query, getDoc, doc, updateDoc, deleteDoc } from 'firebase/firestore'
 
@@ -90,6 +90,7 @@ export const actualizarDocumentoDatabase = async (nombreColeccion, id, data) => 
 export const eliminarDocumentoDatabase = async (nombreColeccion, id) => {
     try {
         const respuesta = await deleteDoc(doc(database, nombreColeccion, id))
+        console.log(respuesta);
     } catch (e) {
         throw new Error(e)
     }
@@ -148,13 +149,13 @@ export const logOutUsuario = async () => {
 export const datosUsuario = async () => {
     try {
         const user = auth.currentUser
-        console.log(user);
+        //console.log(user);
 
         if (user) {
             console.log(user);
             return user
         } else {
-            console.log('datos usuario:', user);
+            //console.log('datos usuario:', user);
             return undefined
         }
 
@@ -166,7 +167,7 @@ export const datosUsuario = async () => {
 
 // el.addEventListener('click', function)
 // Usuario Activo
-onAuthStateChanged(auth, (user) => {
+/* onAuthStateChanged(auth, (user) => {
 
     if (user) {
         usuario = user
@@ -176,4 +177,22 @@ onAuthStateChanged(auth, (user) => {
         usuario = undefined
     }
 
-})
+}) */
+export function onAuthStateChanged() {
+    console.log('onAuthStateChanged>>>   ');
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        // User is signed in, see docs for a list of available properties
+        // https://firebase.google.com/docs/reference/js/firebase.User
+        var uid = user.uid;
+  
+        console.log('auth User', uid, user)
+        return user;
+        // ...
+      } else {
+        // User is signed out
+        console.log('user SignOut');
+        // ...
+      }
+    });
+  }
