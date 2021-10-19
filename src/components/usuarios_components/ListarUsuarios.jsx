@@ -55,12 +55,16 @@ function Usuarios() {
                             <form>
                                 <div className="mb-3">
                                     <label htmlFor="recipient-name" className="col-form-label">Correo:</label>
+<<<<<<< HEAD
                                     <input type="text" className="form-control" id="recipient-name" readonly />
+=======
+                                    <input type="text" className="form-control" id="recipient-name" readOnly />
+>>>>>>> 94f6d06d77cb6b8468a17550c9b168c91c1cb40c
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="estado" className="col-form-label">Estado:</label>
                                     <select className="form-select" id="estado" aria-label="Default select example">
-                                        <option selected disabled value="Ninguno">Seleccione un estado</option>
+                                        <option defaultValue disabled value="Ninguno">Seleccione un estado</option>
                                         <option value="Pendiente">Pendiente</option>
                                         <option value="No autorizado">No autorizado</option>
                                         <option value="Autorizado">Autorizado</option>
@@ -69,7 +73,7 @@ function Usuarios() {
                                 <div className="mb-3">
                                     <label htmlFor="rol" className="col-form-label">Rol:</label>
                                     <select className="form-select" id="rol" aria-label="Default select example">
-                                        <option selected disabled value="Ninguno">Seleccione un rol</option>
+                                        <option defaultValue disabled value="Ninguno">Seleccione un rol</option>
                                         <option value="Administrador" id="Administrador">Administrador</option>
                                         <option value="Vendedor" id="Vendedor">Vendedor</option>
                                         <option value="Ninguno" id="Ninguno">-</option>

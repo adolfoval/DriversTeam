@@ -5,7 +5,10 @@ import { getFirestore } from 'firebase/firestore'
 // Referencia al paquete de autenticacion
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 // Metodos de interaccion con la base de datos
-import { addDoc, collection, getDocs, query, getDoc, doc, updateDoc, deleteDoc } from 'firebase/firestore'
+import { addDoc, collection, getDocs, query, getDoc, doc, updateDoc, deleteDoc, where, limit } from 'firebase/firestore'
+
+import { Route, Redirect } from "react-router-dom"
+
 
 const firebaseConfig = {
     apiKey: "AIzaSyDCAa6J48jm7cEHdKJJt2Qzbu6jKVUg-Hc",
@@ -14,12 +17,14 @@ const firebaseConfig = {
     storageBucket: "driverspub.appspot.com",
     messagingSenderId: "716939539079",
     appId: "1:716939539079:web:17d7255d86d33de5a1be22"
+
+
 };
 
 initializeApp(firebaseConfig);
 const database = getFirestore();
-const auth = getAuth();
-export let usuario;
+export const auth = getAuth();
+
 
 // Guardar base de datos
 export const guardarDatabase = async (nombreColeccion, data) => {
@@ -76,6 +81,7 @@ export const consultarDocumentoDatabase = async (nombreColeccion, id) => {
     }
 }
 
+
 // Actualizacion de un documento
 export const actualizarDocumentoDatabase = async (nombreColeccion, id, data) => {
     try {
@@ -100,14 +106,16 @@ export const eliminarDocumentoDatabase = async (nombreColeccion, id) => {
 export const crearUsuario = async (email, password) => {
     try {
         const credencialesUsuario = await createUserWithEmailAndPassword(auth, email, password)
-        console.log(credencialesUsuario);
-        console.log(credencialesUsuario.user);
-        console.log(credencialesUsuario.user.uid);
+        // console.log(credencialesUsuario);
+        // console.log(credencialesUsuario.user);
+        // console.log(credencialesUsuario.user.uid);
         const user = {
             id: credencialesUsuario.user.uid,
-            email: credencialesUsuario.user.email
+            email: credencialesUsuario.user.email,
+            rol: "Ninguno",
+            estado: "Pendiente"
         }
-        guardarDatabase('listaUsuarios', user)
+        guardarDatabase('usuarios', user)
         return user
     } catch (e) {
         throw new Error(e)
@@ -117,7 +125,7 @@ export const crearUsuario = async (email, password) => {
 // Login Usuarios
 export const loginUsuario = async (email, password) => {
     try {
-        const credencialesUsuario = await signInWithEmailAndPassword(auth, email, password)
+        const credencialesUsuario = await signInWithEmailAndPassword(auth, email, password);
         // console.log(credencialesUsuario);
         // console.log(credencialesUsuario.user);
         // console.log(credencialesUsuario.user.uid);
@@ -128,8 +136,13 @@ export const loginUsuario = async (email, password) => {
         // usuario = user
 
         return credencialesUsuario.user
+
     } catch (e) {
-        throw new Error(e)
+
+        console.log(new Error(e),"a");
+        <Route exact path="/Login">
+            <Redirect to="/Login" />
+        </Route>
     }
 }
 
@@ -167,6 +180,7 @@ export const datosUsuario = async () => {
 
 // el.addEventListener('click', function)
 // Usuario Activo
+<<<<<<< HEAD
 /* onAuthStateChanged(auth, (user) => {
 
     if (user) {
@@ -196,3 +210,18 @@ export function onAuthStateChanged() {
       }
     });
   }
+=======
+// onAuthStateChanged(auth, (user) => {
+
+//     if (user) {
+//         const usuario = user;
+//         console.log('El usuario logueado');
+//     }
+    //else {
+    //         console.log('El usuario ya no esta logueado');
+    //         usuario = undefined
+    //     }
+
+// })
+
+>>>>>>> 94f6d06d77cb6b8468a17550c9b168c91c1cb40c

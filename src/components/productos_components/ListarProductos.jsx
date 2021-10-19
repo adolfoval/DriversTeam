@@ -25,11 +25,11 @@ function ListarProductos() {
 
     const handleModalClose = (e) => {
         setShowNewProduct(false);
-      };
-      
-      const handleModalOpen = () => {
+    };
+
+    const handleModalOpen = () => {
         setShowNewProduct(true);
-      };
+    };
 
 
     return (
@@ -62,16 +62,23 @@ function ListarProductos() {
                             <th scope="col">Accion</th>
                         </tr>
                     </thead>
+<<<<<<< HEAD
                     <tbody>
                         {
                             listaProductos.map((producto, index) => {
                                 return (
+=======
+                    {
+                        listaProductos.map((producto, index) => {
+                            return (
+>>>>>>> 94f6d06d77cb6b8468a17550c9b168c91c1cb40c
                                 <tr key={producto.id}>
                                     <th scope="row">{index + 1}</th>
                                     <td>{producto.descripcion}  </td>
                                     <td>{producto.valorUnitario}</td>
                                     <td>{producto.estado}</td>
                                     <td>
+<<<<<<< HEAD
                                     {                               
                                         <Link to={`/ListarProductos/${producto.id}`}>
                                             <button className="btn btn-outline-primary btn-sm" title="Editar"><FontAwesomeIcon icon={faPenSquare}/></button>
@@ -87,6 +94,24 @@ function ListarProductos() {
                             })
                         }
                     </tbody>
+=======
+                                        {
+                                            <Link to={`/productos/${producto.id}`}>
+                                                <button className="btn btn-outline-primary btn-sm" title="Editar"><FontAwesomeIcon icon={faPenSquare} /></button>
+                                            </Link>
+                                        }
+                                        {
+                                            <Link to={`/productos/${producto.id}/delete`}>
+                                                <button className="btn btn-outline-danger btn-sm" title="Eliminar"><FontAwesomeIcon icon={faTimes} /></button>
+                                            </Link>
+                                        }
+                                    </td>
+                                </tr>)
+                        })
+                    }
+
+
+>>>>>>> 94f6d06d77cb6b8468a17550c9b168c91c1cb40c
                 </table>
 
             </div>
@@ -115,7 +140,7 @@ Launch static backdrop modal
                                 <div className="mb-3">
                                     <label htmlFor="message-text" className="col-form-label">Estado:</label>
                                     <select className="form-select" id="message-tex" aria-label="Default select example">
-                                        <option selected disabled>Seleccione un estado</option>
+                                        <option defaultValue disabled>Seleccione un estado</option>
                                         <option value="1">Disponible</option>
                                         <option value="2">No disponible</option>
 
@@ -155,7 +180,7 @@ Launch static backdrop modal
                                 <div className="mb-3">
                                     <label htmlFor="message-text" className="col-form-label">Estado:</label>
                                     <select className="form-select" id="estadoProducto" aria-label="Default select example">
-                                        <option selected disabled>Seleccione un estado</option>
+                                        <option defaultValue disabled>Seleccione un estado</option>
                                         <option value="Disponible">Disponible</option>
                                         <option value="No disponible">No disponible</option>
 
