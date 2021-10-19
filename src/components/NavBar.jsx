@@ -1,11 +1,27 @@
-import React from 'react';
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPizzaSlice, faBeer} from "@fortawesome/free-solid-svg-icons";
-import {Link, NavLink} from "react-router-dom";
+import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPizzaSlice, faBeer } from "@fortawesome/free-solid-svg-icons";
+import { Link, NavLink, useHistory} from "react-router-dom";
+import {logOutUsuario} from "../config/Firebase";
 
 
-function NavBar() {
+function NavBar(props) {
+
+    let history = useHistory();
+
+    const handleSalir = (event)=>{
+        event.preventDefault();
+        
+        //console.log("Me salix2");
+        props.func.setLog(false);
+        history.replace("/");
+        window.localStorage.clear();
+        logOutUsuario();
+        
+    }
+
     return (
+
         <div>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div className="container-fluid">
@@ -14,10 +30,10 @@ function NavBar() {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-                        <NavLink activeClassName="active" className="navbar-brand" to="">Driver's Pub <FontAwesomeIcon icon={faBeer}/><FontAwesomeIcon icon ={faPizzaSlice} className="fa-pulse" /></NavLink>
+                        <NavLink activeClassName="active" className="navbar-brand" to="">Driver's Pub <FontAwesomeIcon icon={faBeer} /><FontAwesomeIcon icon={faPizzaSlice} className="fa-pulse" /></NavLink>
                         <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
                             <li className="nav-item">
-                                <NavLink activeClassName="active" className="nav-link" aria-current="page" to="/Inicio">Inicio</NavLink>
+                                <NavLink className="nav-link" aria-current="page" to="/">Inicio</NavLink>
                             </li>
 
                             <li className="navbar-nav mx-auto mb-2 mb-lg-0">
@@ -28,8 +44,8 @@ function NavBar() {
                                 <a className="nav-link dropdown-toggle" href="/" id="navbarScrollingDropdown" data-bs-toggle="dropdown"
                                     aria-expanded="false">Administrar ventas</a>
                                 <ul className="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                                    <li><Link activeClassName="active"  className="dropdown-item" to="/RegistrarVentas">Registrar venta</Link></li>
-                                    <li><Link className="dropdown-item" to="/ListarVentas">Listar ventas</Link></li>
+                                    <li><NavLink activeClassName="active" className="dropdown-item" to="/RegistrarVentas">Registrar venta</NavLink></li>
+                                    <li><NavLink className="dropdown-item" to="/ListarVentas">Listar ventas</NavLink></li>
                                 </ul>
                             </li>
 
@@ -42,10 +58,10 @@ function NavBar() {
                         <form className="d-flex">
                             <li className="nav-item dropdown">
                                 <a className="nav-link dropdown-toggle" href="/" id="navbarDropdownMenuLink" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false"> admin1@gmail.com</a>
+                                    data-bs-toggle="dropdown" aria-expanded="false">{window.localStorage.getItem("correo").replace(/"/g, '')}</a>
                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <li><Link className="dropdown-item" to="">Preferencias</Link></li>
-                                    <li><Link className="dropdown-item" to="">Salir</Link></li>
+                                    <li><button className="dropdown-item" onClick={handleSalir} >Salir</button></li>
                                 </ul>
                             </li>
                         </form>
@@ -53,6 +69,7 @@ function NavBar() {
                 </div>
             </nav>
         </div>
+
     )
 }
 

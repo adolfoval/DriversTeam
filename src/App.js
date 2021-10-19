@@ -8,29 +8,71 @@ import RegistrarVentas from './components/ventas_componnets/RegistrarVentas';
 import ListarVentas from './components/ventas_componnets/ListarVentas';
 import ListarProductos from './components/productos_components/ListarProductos';
 import Error404 from './components/Error404';
+import { useInfo } from "./useInfo";
 
 
 
 
-function App() {
+function LoginFunction(props) {
   return (
-    <div className="mx-auto">
+    <div>
       <Router>
-        
-        <NavBar />
+        <Login func={props} />
         <Switch>
-          <Route path="/Inicio" exact component ={Inicio}/>
-          <Route path="/Login" exact component ={Login}/>
-          <Route path="/ListarUsuarios" exact component ={ListarUsuarios}/>
-          <Route path="/RegistrarVentas" exact component ={RegistrarVentas}/>
-          <Route path="/ListarVentas" exact component ={ListarVentas}/>
-          <Route path="/ListarProductos" exact component ={ListarProductos}/>
-          <Route path="*" component ={Error404}/>
+          <Route path="/" exact component={Inicio} />
         </Switch>
       </Router>
 
     </div>
   );
+
+}
+
+function NavBarFunction(props) {
+  return (
+    <div className="mx-auto">
+
+      <Router>
+        <NavBar func={props} />
+        <Switch>
+          {/* <Route path="/Inicio" exact component={Inicio} /> */}
+          <Route path="/" exact component={Inicio} />
+          <Route path="/Login" exact component={Login} />
+          <Route path="/ListarUsuarios" exact component={ListarUsuarios} />
+          <Route path="/RegistrarVentas" exact component={RegistrarVentas} />
+          <Route path="/ListarVentas" exact component={ListarVentas} />
+          <Route path="/ListarProductos" exact component={ListarProductos} />
+          <Route path="*" component={Error404} />
+        </Switch>
+      
+      </Router>
+
+    </div>
+  );
+}
+
+
+function App() {
+
+  //let userIsloged = false;
+  const [isLoged, SetisLoged] = useInfo('isLoged', false);
+  // console.log(auth);
+
+  const setLog = (value) => {
+    SetisLoged(value);
+    //userIsloged = value;
+    //console.log(Isloged);
+  };
+
+  if (!isLoged) {
+    return (
+      <LoginFunction setLog={setLog} />
+    );
+  } else {
+    return (
+      <NavBarFunction setLog={setLog} />
+    );
+  }
 }
 
 export default App;

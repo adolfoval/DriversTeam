@@ -1,5 +1,6 @@
 import React from 'react';
 import "./css/Inicio.css"
+import {Link} from "react-router-dom";
 
 function Inicio() {
     return (
@@ -13,7 +14,7 @@ function Inicio() {
                     <div className="col-lg-6">
                         <h1 className="mt-3">Driver's Pub</h1>
                         <p className="lead text-secondary my-5">Bienvenido al mejor lugar de la ciudad para pasar el mejor rato con sus amigos</p>
-                        <a href="/Login" className="btn btn-outline-secondary btn-lg border">Login</a>
+                        {/* <Link to="/Login" className="btn btn-outline-secondary btn-lg border">Login</Link> */}
                     </div>
                 </div>
             </div>

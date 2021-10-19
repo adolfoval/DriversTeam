@@ -53,7 +53,7 @@ function ListarVentas() {
                             <td> 123456789 </td>
                             <td> Enrique Perez </td>
                             <td><button type="button" className="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#modalEditar"
-                                idVenta="001" cliente="Juan Sanchez" idCliente="123456789"><FontAwesomeIcon icon={faPenSquare}/></button></td>
+                                idventa="001" cliente="Juan Sanchez" idcliente="123456789"><FontAwesomeIcon icon={faPenSquare}/></button></td>
                         </tr>
                         <tr>
                             <th scope="row">002</th>
