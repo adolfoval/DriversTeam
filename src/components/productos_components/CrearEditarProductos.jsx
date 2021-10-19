@@ -2,6 +2,9 @@ import { actualizarDocumentoDatabase, guardarDatabase} from '../../config/Fireba
 
 function CrearEditarProductos() {
 
+    let id = useParams();
+
+
     actualizarDocumentoDatabase
     guardarDatabase
 

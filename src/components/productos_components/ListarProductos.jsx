@@ -24,11 +24,11 @@ function ListarProductos() {
 
     const handleModalClose = (e) => {
         setShowNewProduct(false);
-      };
-      
-      const handleModalOpen = () => {
+    };
+
+    const handleModalOpen = () => {
         setShowNewProduct(true);
-      };
+    };
 
 
 
@@ -46,8 +46,8 @@ function ListarProductos() {
 
                 <br />
 
-                <button type="button" className="btn btn-outline-dark  btn-sm" data-bs-toggle="modal" data-bs-target="#modalRegistroProducto" user="Cerveza"
-                    data-bs-whatever="$ 12.000">Registro producto</button>
+                <button type="button" className="btn btn-outline-dark  btn-sm" data-bs-toggle="modal" data-bs-target="#modalRegistroProducto" user
+                    data-bs-whatever>Registro producto</button>
 
                 <br />
 
@@ -65,24 +65,24 @@ function ListarProductos() {
                     {
                         listaProductos.map((producto, index) => {
                             return (
-                            <tr key={producto.id}>
-                                <th scope="row">{index + 1}</th>
-                                <td>{producto.descripcion}  </td>
-                                <td>{producto.valorUnitario}</td>
-                                <td>{producto.estado}</td>
-                                <td>
-                                {                               
-                                    <Link to={`/productos/${producto.id}`}>
-                                        <button className="btn btn-outline-primary btn-sm" title="Editar"><FontAwesomeIcon icon={faPenSquare}/></button>
-                                    </Link>
-                                 }
-                                {                               
-                                    <Link to={`/productos/${producto.id}/delete`}>
-                                        <button className="btn btn-outline-danger btn-sm" title="Eliminar"><FontAwesomeIcon icon={faTimes}/></button>
-                                    </Link>
-                                 }
-                                </td>
-                            </tr>)
+                                <tr key={producto.id}>
+                                    <th scope="row">{index + 1}</th>
+                                    <td>{producto.descripcion}  </td>
+                                    <td>{producto.valorUnitario}</td>
+                                    <td>{producto.estado}</td>
+                                    <td>
+                                        {
+                                            <Link to={`/productos/${producto.id}`}>
+                                                <button className="btn btn-outline-primary btn-sm" title="Editar"><FontAwesomeIcon icon={faPenSquare} /></button>
+                                            </Link>
+                                        }
+                                        {
+                                            <Link to={`/productos/${producto.id}/delete`}>
+                                                <button className="btn btn-outline-danger btn-sm" title="Eliminar"><FontAwesomeIcon icon={faTimes} /></button>
+                                            </Link>
+                                        }
+                                    </td>
+                                </tr>)
                         })
                     }
 
