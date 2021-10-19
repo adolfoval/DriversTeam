@@ -7,22 +7,23 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, si
 // Metodos de interaccion con la base de datos
 import { addDoc, collection, getDocs, query, getDoc, doc, updateDoc, deleteDoc, where, limit } from 'firebase/firestore'
 
-import {Route, Redirect} from "react-router-dom"
+import { Route, Redirect } from "react-router-dom"
 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyAirdIlPt03ALUs-J-FKLugvxpjkA8XxJI",
-    authDomain: "crudreact-bd5d.firebaseapp.com",
-    projectId: "crudreact-bdb5d",
-    storageBucket: "crudreact-bdb5d.appspot.com",
-    messagingSenderId: "677317573105",
-    appId: "1:677317573105:web:26ea38fce959c33eacec50"
+    apiKey: "AIzaSyDCAa6J48jm7cEHdKJJt2Qzbu6jKVUg-Hc",
+    authDomain: "driverspub.firebaseapp.com",
+    projectId: "driverspub",
+    storageBucket: "driverspub.appspot.com",
+    messagingSenderId: "716939539079",
+    appId: "1:716939539079:web:17d7255d86d33de5a1be22"
+
 
 };
 
 initializeApp(firebaseConfig);
 const database = getFirestore();
- export const auth = getAuth();
+export const auth = getAuth();
 
 
 // Guardar base de datos
@@ -132,14 +133,14 @@ export const loginUsuario = async (email, password) => {
         //   email: credencialesUsuario.user.email
         // }
         // usuario = user
-        
+
         return credencialesUsuario.user
-       
-        
+
+
     } catch (e) {
         alert(new Error(e));
         <Route exact path="/Login">
-            <Redirect to="/Login"/>
+            <Redirect to="/Login" />
         </Route>
     }
 }
