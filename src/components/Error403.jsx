@@ -3,7 +3,7 @@ import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import "./css/error404.css";
 
-function Error404() {
+function Error403() {
 
     let location = useLocation();
     return (
@@ -21,4 +21,4 @@ function Error404() {
     )
 }
 
-export default Error404
+export default Error403
