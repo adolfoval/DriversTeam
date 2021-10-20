@@ -1,9 +1,14 @@
 import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenSquare } from "@fortawesome/free-solid-svg-icons";
+import Error403 from "../Error403";
 
 function Usuarios() {
     const background = { backgroundImage: "none" };
+    const rol = JSON.stringify(localStorage.getItem("rol")).
+    replace(/"/g, '').replaceAll("/").replace(/\\/g, '');
+
+    if(rol === "Administrador"){
     return (
         <div style={background}>
             <div className="container align-self-center p-4">
@@ -86,6 +91,11 @@ function Usuarios() {
             </div>
         </div>
     )
+    }else{
+        return(
+            <Error403/>
+        )
+    }
 }
 
 export default Usuarios

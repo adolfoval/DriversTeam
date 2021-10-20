@@ -24,27 +24,69 @@ function Login(props) {
 
     const handleRegistrar = (event) => {
         event.preventDefault();
-        setCrearUsu(false);
-        crearUsuario(correo, contrasenna);
-        SetCorre("");
-        SetContrassena("");
+        if (!correo.trim()) {
 
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-        })
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
 
-        Toast.fire({
-            icon: 'success',
-            title: 'Registro exitoso'
-        })
+            Toast.fire({
+                icon: 'error',
+                title: 'Campo usuario vacio, por favor digite un correo.'
+            })
+            return;
+
+        } else if (!contrasenna.trim()) {
+
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: 'error',
+                title: 'Campo contraseña vacio, por favor digite una contraseña'
+            })
+            return
+        } else {
+            setCrearUsu(false);
+            crearUsuario(correo, contrasenna);
+            SetCorre("");
+            SetContrassena("");
+
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: 'success',
+                title: 'Registro exitoso'
+            })
+        }
+
 
     }
 
@@ -130,8 +172,6 @@ function Login(props) {
         //console.log("Entro a login");
         //console.log(history);
         //history.push('/Inicio');
-
-
     }
 
     const handleUsuario = (event) => {

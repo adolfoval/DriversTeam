@@ -10,6 +10,7 @@ import ListarProductos from './components/productos_components/ListarProductos';
 import EliminarProductos from './components/productos_components/EliminarProductos';
 import Error404 from './components/Error404';
 import { useInfo } from "./useInfo";
+import Error403 from "./components/Error403"
 
 
 
@@ -48,6 +49,7 @@ function NavBarFunction(props) {
           <Route path="/ListarProductos/delete/:id" component ={EliminarProductos}/>
           <Route path="/" exact component ={Login}/>
           <Route path="*" component ={Error404}/>
+          <Route path="/Error403" component ={Error403}/>
         </Switch>
       
       </Router>

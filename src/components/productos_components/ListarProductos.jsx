@@ -3,12 +3,15 @@ import { Link } from 'react-router-dom'
 import { consultarDatabase } from '../../config/Firebase'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenSquare, faTimes } from "@fortawesome/free-solid-svg-icons";
+import Error403 from "../Error403";
 
 function ListarProductos() {
 
 
     const [listaProductos, setListaProductos] = useState([])
     const [showNewProduct, setShowNewProduct] = useState(false);
+    const rol = JSON.stringify(localStorage.getItem("rol")).
+    replace(/"/g, '').replaceAll("/").replace(/\\/g, '');
 
     useEffect(() => {
         cargarDatos()
@@ -31,7 +34,7 @@ function ListarProductos() {
         setShowNewProduct(true);
     };
 
-
+    if(rol === "Administrador"){
     return (
         <div>
             <div className="container align-self-center container-sm">
@@ -173,6 +176,11 @@ Launch static backdrop modal
             </div>
         </div>
     )
+    }else{
+        return(
+            <Error403/>
+        )
+    }
 }
 
 export default ListarProductos
