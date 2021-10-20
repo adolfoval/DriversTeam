@@ -180,7 +180,6 @@ export const datosUsuario = async () => {
 
 // el.addEventListener('click', function)
 // Usuario Activo
-<<<<<<< HEAD
 /* onAuthStateChanged(auth, (user) => {
 
     if (user) {
@@ -210,18 +209,3 @@ export function onAuthStateChanged() {
       }
     });
   }
-=======
-// onAuthStateChanged(auth, (user) => {
-
-//     if (user) {
-//         const usuario = user;
-//         console.log('El usuario logueado');
-//     }
-    //else {
-    //         console.log('El usuario ya no esta logueado');
-    //         usuario = undefined
-    //     }
-
-// })
-
->>>>>>> 94f6d06d77cb6b8468a17550c9b168c91c1cb40c

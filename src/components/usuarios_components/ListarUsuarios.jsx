@@ -55,11 +55,7 @@ function Usuarios() {
                             <form>
                                 <div className="mb-3">
                                     <label htmlFor="recipient-name" className="col-form-label">Correo:</label>
-<<<<<<< HEAD
-                                    <input type="text" className="form-control" id="recipient-name" readonly />
-=======
                                     <input type="text" className="form-control" id="recipient-name" readOnly />
->>>>>>> 94f6d06d77cb6b8468a17550c9b168c91c1cb40c
                                 </div>
                                 <div className="mb-3">
                                     <label htmlFor="estado" className="col-form-label">Estado:</label>

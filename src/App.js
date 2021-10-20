@@ -46,12 +46,8 @@ function NavBarFunction(props) {
           <Route path="/ListarVentas" exact component ={ListarVentas}/>
           <Route path="/ListarProductos" exact component ={ListarProductos}/>
           <Route path="/ListarProductos/delete/:id" component ={EliminarProductos}/>
-<<<<<<< HEAD
           <Route path="/" exact component ={Login}/>
           <Route path="*" component ={Error404}/>
-=======
-          <Route path="/Error404" exact component ={Error404}/>
->>>>>>> 94f6d06d77cb6b8468a17550c9b168c91c1cb40c
         </Switch>
       
       </Router>

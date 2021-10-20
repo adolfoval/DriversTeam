@@ -1,38 +1,3 @@
-<<<<<<< HEAD
-import React, { useEffect, useState } from 'react'
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPizzaSlice, faBeer} from "@fortawesome/free-solid-svg-icons";
-import {Link, NavLink} from "react-router-dom";
-import { datosUsuario, onAuthStateChanged } from '../config/Firebase'
-
-
-function NavBar() {
-
-
-     const [usuario, setUsuario] = useState({displayName:undefined,email:undefined})
-
-
-/*     useEffect(() => {
-        consultaUsuario()
-    }, [])
-
-    const consultaUsuario = async () => {
-        const user = await datosUsuario() 
-        setUsuario(user)
-    }  */
-
-
-    useEffect(() => {
-        cargarDatos()
-    }, [])
-
-    const cargarDatos = async () => {
-        setUsuario(await datosUsuario()) 
-        console.log("usuario ",usuario);
-    }
-
-    
-=======
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPizzaSlice, faBeer } from "@fortawesome/free-solid-svg-icons";
@@ -57,7 +22,6 @@ function NavBar(props) {
 
     }
 
->>>>>>> 94f6d06d77cb6b8468a17550c9b168c91c1cb40c
     return (
 
         <div>
@@ -88,11 +52,7 @@ function NavBar(props) {
                                 <a className="nav-link dropdown-toggle" href="/" id="navbarScrollingDropdown" data-bs-toggle="dropdown"
                                     aria-expanded="false">Administrar ventas</a>
                                 <ul className="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-<<<<<<< HEAD
-                                    <li><NavLink activeClassName="active"  className="dropdown-item" to="/RegistrarVentas">Registrar venta</NavLink></li>
-=======
                                     <li><NavLink activeClassName="active" className="dropdown-item" to="/RegistrarVentas">Registrar venta</NavLink></li>
->>>>>>> 94f6d06d77cb6b8468a17550c9b168c91c1cb40c
                                     <li><NavLink className="dropdown-item" to="/ListarVentas">Listar ventas</NavLink></li>
                                 </ul>
                             </li>
@@ -112,20 +72,11 @@ function NavBar(props) {
                             <li className="nav-item dropdown">
                                 
                                 <a className="nav-link dropdown-toggle" href="/" id="navbarDropdownMenuLink" role="button"
-<<<<<<< HEAD
-                                    data-bs-toggle="dropdown" aria-expanded="false">  { usuario ? usuario.displayName : "Login"  } </a>
-                                <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <li><Link className="dropdown-item" to="">Preferencias</Link></li>
-                                    <li><Link className="dropdown-item" to="">Salir</Link></li>
-
-=======
                                     data-bs-toggle="dropdown" aria-expanded="false">{window.localStorage.getItem("correo").replace(/"/g, '')}</a>
                                 <ul className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                     <li><Link className="dropdown-item" to="">Preferencias</Link></li>
                                     <li><button className="dropdown-item" onClick={handleSalir} >Salir</button></li>
->>>>>>> 94f6d06d77cb6b8468a17550c9b168c91c1cb40c
                                 </ul>
-                                <h7 class="text-white bg-dark">{usuario ? usuario.email : ""}</h7>
                                 
                             </li>
                             

@@ -62,23 +62,16 @@ function ListarProductos() {
                             <th scope="col">Accion</th>
                         </tr>
                     </thead>
-<<<<<<< HEAD
                     <tbody>
                         {
                             listaProductos.map((producto, index) => {
                                 return (
-=======
-                    {
-                        listaProductos.map((producto, index) => {
-                            return (
->>>>>>> 94f6d06d77cb6b8468a17550c9b168c91c1cb40c
                                 <tr key={producto.id}>
                                     <th scope="row">{index + 1}</th>
                                     <td>{producto.descripcion}  </td>
                                     <td>{producto.valorUnitario}</td>
                                     <td>{producto.estado}</td>
                                     <td>
-<<<<<<< HEAD
                                     {                               
                                         <Link to={`/ListarProductos/${producto.id}`}>
                                             <button className="btn btn-outline-primary btn-sm" title="Editar"><FontAwesomeIcon icon={faPenSquare}/></button>
@@ -94,24 +87,6 @@ function ListarProductos() {
                             })
                         }
                     </tbody>
-=======
-                                        {
-                                            <Link to={`/productos/${producto.id}`}>
-                                                <button className="btn btn-outline-primary btn-sm" title="Editar"><FontAwesomeIcon icon={faPenSquare} /></button>
-                                            </Link>
-                                        }
-                                        {
-                                            <Link to={`/productos/${producto.id}/delete`}>
-                                                <button className="btn btn-outline-danger btn-sm" title="Eliminar"><FontAwesomeIcon icon={faTimes} /></button>
-                                            </Link>
-                                        }
-                                    </td>
-                                </tr>)
-                        })
-                    }
-
-
->>>>>>> 94f6d06d77cb6b8468a17550c9b168c91c1cb40c
                 </table>
 
             </div>
