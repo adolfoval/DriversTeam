@@ -3,184 +3,118 @@ import { Link } from 'react-router-dom'
 import { consultarDatabase } from '../../config/Firebase'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenSquare, faTimes } from "@fortawesome/free-solid-svg-icons";
-import Error403 from "../Error403";
+
 
 function ListarProductos() {
 
-
     const [listaProductos, setListaProductos] = useState([])
-    const [showNewProduct, setShowNewProduct] = useState(false);
-    const rol = JSON.stringify(localStorage.getItem("rol")).
-    replace(/"/g, '').replaceAll("/").replace(/\\/g, '');
-
     useEffect(() => {
         cargarDatos()
     }, [])
 
     const cargarDatos = async () => {
-        // console.log('Entro..!');
         const listaTemporal = await consultarDatabase('productos')
-        // console.log(listaTemporal);
         setListaProductos(listaTemporal)
-        
+
     }
 
-
-    const handleModalClose = (e) => {
-        setShowNewProduct(false);
-    };
-
-    const handleModalOpen = () => {
-        setShowNewProduct(true);
-    };
-
-    if(rol === "Administrador"){
     return (
         <div>
-            <div className="container align-self-center container-sm">
+            <div className="container align-self-center">
+
 
                 <h1 className="mb-4 text-center">Productos</h1>
 
                 <div className="input-group mb-3">
-                    <input type="text" className="form-control form-control-sm" placeholder="Id producto, descripcion, estado "
-                        aria-label="Recipient's username" aria-describedby="button-addon2" />
-                    <button className="btn btn-outline-dark  btn-sm" type="button" id="button-addon2">Buscar</button>
+                    <input type="text" className="form-control form-control-sm" placeholder="Id producto, Descripcion, Valor unitario, Estado " aria-label="Recipient's username" aria-describedby="button-addon2" />
+                    <button className="btn btn-outline-dark btn-sm " type="button" id="button-addon2">Buscar</button>
                 </div>
 
-                <br />
-
-                <button type="button" className="btn btn-outline-dark  btn-sm" data-bs-toggle="modal" data-bs-target="#modalRegistroProducto" user
-                    data-bs-whatever>Registro producto</button>
-
-                <br />
+                <button type="button" className="btn btn-outline-dark btn-sm " data-bs-toggle="modal" data-bs-target="#modalRegistroProducto">
+                    Agregar producto
+                </button>
 
                 <table className="table caption-top table-hover">
-
                     <thead>
                         <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Descripción</th>
-                            <th scope="col">Valor Unitario</th>
+                            <th scope="col">Id producto</th>
+                            <th scope="col">Descripcion</th>
+                            <th scope="col">Valor unitario</th>
                             <th scope="col">Estado</th>
                             <th scope="col">Accion</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
+
                             listaProductos.map((producto, index) => {
                                 return (
-                                <tr key={producto.id}>
-                                    <th scope="row">{index + 1}</th>
-                                    <td>{producto.descripcion}  </td>
-                                    <td>{producto.valorUnitario}</td>
-                                    <td>{producto.estado}</td>
-                                    <td>
-                                    {                               
-                                        <Link to={`/ListarProductos/${producto.id}`}>
-                                            <button className="btn btn-outline-primary btn-sm" title="Editar"><FontAwesomeIcon icon={faPenSquare}/></button>
-                                        </Link>
-                                    }
-                                    {                               
-                                        <Link to={`/ListarProductos/delete/${producto.id}`}>
-                                            <button className="btn btn-outline-danger btn-sm" title="Eliminar"><FontAwesomeIcon icon={faTimes}/></button>
-                                        </Link>
-                                    }
-                                    </td>
-                                </tr>)
+                                    <tr key={producto.id}>
+                                        {/* <th scope="row">{index + 1}</th> */}
+                                        <th>{producto.id}</th>
+                                        <td>{producto.descripcion}</td>
+                                        <td>{producto.valorUnitario}</td>
+                                        <td>{producto.estado}</td>
+                                        <td>
+                                            {
+                                                <Link to={`/ListarProductos/${producto.id}`}>
+                                                    <button className="btn btn-outline-primary btn-sm" title="Editar"><FontAwesomeIcon icon={faPenSquare} /></button>
+                                                </Link>
+                                            }
+                                            {
+                                                <Link to={`/ListarProductos/delete/${producto.id}`}>
+                                                    <button className="btn btn-outline-danger btn-sm" title="Eliminar"><FontAwesomeIcon icon={faTimes} /></button>
+                                                </Link>
+                                            }
+                                        </td>
+                                    </tr>)
                             })
                         }
                     </tbody>
                 </table>
 
-            </div>
+                <div class="modal fade" id="modalRegistroProducto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                    aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Registro de Producto</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="formulario-registro-producto">
 
-            {/* <!-- Button trigger modal 
-<button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-Launch static backdrop modal
-</button>--> */}
+                                    <div class="mb">
+                                        <label for="descripcion" class="col-form-label">Descripción del Producto:</label>
+                                        <input type="text" class="form-control" id="descripcion"/>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="valor unit" class="col-form-label">Valor Unitario:</label>
+                                        <input type="number" class="form-control" id="valor-unitario"/>
+                                    </div>
 
-            {/* <!-- Modal editar--> */}
-            <div className="modal fade" id="modalEditar" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1"
-                aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Actualizar Producto</h5>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div className="modal-body">
-                            <form>
-                                <div className="mb-3">
-                                    <label htmlFor="usuario-name" className="col-form-label">Valor Unitario:</label>
-                                    <input type="text" className="form-control" id="usuario-name" />
-                                </div>
+                                    <div class="mb-3">
+                                        <label for="message-text" class="col-form-label">Estado:</label>
+                                        <select class="form-select" id="estadoProducto" aria-label="Default select example">
+                                            <option selected disabled>Seleccione un estado</option>
+                                            <option value="Disponible">Disponible</option>
+                                            <option value="No disponible">No disponible</option>
 
-                                <div className="mb-3">
-                                    <label htmlFor="message-text" className="col-form-label">Estado:</label>
-                                    <select className="form-select" id="message-tex" aria-label="Default select example">
-                                        <option defaultValue disabled>Seleccione un estado</option>
-                                        <option value="1">Disponible</option>
-                                        <option value="2">No disponible</option>
+                                        </select>
+                                    </div>
 
-                                    </select>
-                                </div>
-                            </form>
-                        </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="button" className="btn btn-success">Actualizar</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            {/* <!-- Modal registro producto--> */}
-            <div className="modal fade" id="modalRegistroProducto" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1"
-                aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
-                <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">Registro de Producto</h5>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div className="modal-body">
-                            <form id="formulario-registro-producto">
-
-                                <div className="mb">
-                                    <label htmlFor="descripcion" className="col-form-label">Descripción del Producto:</label>
-                                    <input type="text" className="form-control" id="descripcion" />
-                                </div>
-                                <div className="mb-3">
-                                    <label htmlFor="valor unit" className="col-form-label">Valor Unitario:</label>
-                                    <input type="number" className="form-control" id="valor-unitario" />
-                                </div>
-
-                                <div className="mb-3">
-                                    <label htmlFor="message-text" className="col-form-label">Estado:</label>
-                                    <select className="form-select" id="estadoProducto" aria-label="Default select example">
-                                        <option defaultValue disabled>Seleccione un estado</option>
-                                        <option value="Disponible">Disponible</option>
-                                        <option value="No disponible">No disponible</option>
-
-                                    </select>
-                                </div>
-
-                                <div className="modal-footer">
-                                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                    <button type="submit" className="btn btn-success" data-bs-dismiss="modal">Confirmar</button>
-                                </div>
-                            </form>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                        <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Confirmar</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
             </div>
         </div>
+    </div>
     )
-    }else{
-        return(
-            <Error403/>
-        )
-    }
 }
 
 export default ListarProductos
