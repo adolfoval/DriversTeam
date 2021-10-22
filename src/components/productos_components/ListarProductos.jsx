@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { consultarDatabase } from '../../config/Firebase'
+import { consultarDatabase, guardarDatabase } from '../../config/Firebase'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenSquare, faTimes } from "@fortawesome/free-solid-svg-icons";
 
@@ -8,6 +8,10 @@ import { faPenSquare, faTimes } from "@fortawesome/free-solid-svg-icons";
 function ListarProductos() {
 
     const [listaProductos, setListaProductos] = useState([])
+    const [descripcion, setDescripcion] = useState('')
+    const [estado, setEstado] = useState('')
+    const [valorUnitario, setValorUnitario] = useState('')
+
     useEffect(() => {
         cargarDatos()
     }, [])
@@ -16,6 +20,21 @@ function ListarProductos() {
         const listaTemporal = await consultarDatabase('productos')
         setListaProductos(listaTemporal)
 
+    }
+
+    const handleGuardarProducto =async (e)=>{
+        // e.preventDefault()
+
+        const producto = {
+            descripcion,
+            estado,
+            valorUnitario
+        }
+
+        await guardarDatabase('productos', producto) 
+        setDescripcion('')
+        setValorUnitario('')
+        setEstado('')
     }
 
     return (
@@ -86,16 +105,16 @@ function ListarProductos() {
 
                                     <div class="mb">
                                         <label for="descripcion" class="col-form-label">Descripción del Producto:</label>
-                                        <input type="text" class="form-control" id="descripcion"/>
+                                        <input type="text" class="form-control" id="descripcion" onChange={(e) => setDescripcion(e.target.value)}/>
                                     </div>
                                     <div class="mb-3">
                                         <label for="valor unit" class="col-form-label">Valor Unitario:</label>
-                                        <input type="number" class="form-control" id="valor-unitario"/>
+                                        <input type="number" class="form-control" id="valor-unitario" onChange={(e) => setValorUnitario(e.target.value)}/>
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="message-text" class="col-form-label">Estado:</label>
-                                        <select class="form-select" id="estadoProducto" aria-label="Default select example">
+                                        <select class="form-select" id="estadoProducto" aria-label="Default select example" onChange={(e) => setEstado(e.target.value)}>
                                             <option selected disabled>Seleccione un estado</option>
                                             <option value="Disponible">Disponible</option>
                                             <option value="No disponible">No disponible</option>
@@ -105,7 +124,7 @@ function ListarProductos() {
 
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                        <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Confirmar</button>
+                                        <button type="submit" class="btn btn-success" data-bs-dismiss="modal" onClick={handleGuardarProducto}>Confirmar</button>
                                     </div>
                                 </form>
                             </div>
