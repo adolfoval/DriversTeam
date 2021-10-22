@@ -1,8 +1,23 @@
-import React from 'react';
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPenSquare} from "@fortawesome/free-solid-svg-icons";
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { consultarDatabase } from '../../config/Firebase'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPenSquare, faTimes } from "@fortawesome/free-solid-svg-icons";
+
 
 function ListarVentas() {
+
+    const [listaVentas, setListaVentas] = useState([])
+    useEffect(() => {
+        cargarDatos()
+    }, [])
+
+    const cargarDatos = async () => {
+        const listaTemporal = await consultarDatabase('ventas')
+        setListaVentas(listaTemporal)
+        
+    }
+
     return (
         <div>
             <div className="container align-self-center">
@@ -30,46 +45,76 @@ function ListarVentas() {
                             <th scope="col">Estado</th>
                             <th scope="col">Fecha</th>
                             <th scope="col">Productos</th>
-                            <th scope="col">Cantidad</th>
-                            <th scope="col">Valor/unit</th>
                             <th scope="col">Valor venta</th>
                             <th scope="col">Cliente</th>
                             <th scope="col">Id cliente</th>
                             <th scope="col">Vendedor</th>
+                            <th scope="col">Accion</th>
                         </tr>
                     </thead>
-                    <tbody id="tableBody">
+                    <tbody>
+                    {
 
+                        listaVentas.map((venta, index) => {
+                            return (
+                            <tr key={venta.id}>
+                                <th scope="row">{index + 1}</th>
+                                <td>{venta.estado}  </td>
+                                <td>fecha</td>
+                                <td>
+                                    
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th scope="col">Id venta</th>
+                                                    <th scope="col">Precio Unitario</th>
+                                                    <th scope="col">Producto</th>
+                                                    <th scope="col">Cantidad</th>
+                                                    <th scope="col">TotalVenta</th>
+                                                    
 
-                        <tr>
-                            <th scope="row">001</th>
-                            <td>En proceso</td>
-                            <td>27-sep-2021</td>
-                            <td> <ul>Hamburguesa</ul><ul>Cerveza</ul>  </td>
-                            <td> <ul>2</ul><ul>2</ul></td>
-                            <td> <ul>20.000</ul><ul>30.000</ul>  </td>
-                            <td> 100.000 </td>
-                            <td> Juan Sanchez </td>
-                            <td> 123456789 </td>
-                            <td> Enrique Perez </td>
-                            <td><button type="button" className="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#modalEditar"
-                                idventa="001" cliente="Juan Sanchez" idcliente="123456789"><FontAwesomeIcon icon={faPenSquare}/></button></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">002</th>
-                            <td>En proceso</td>
-                            <td>28-sep-2021</td>
-                            <td> Nachos </td>
-                            <td> 3 </td>
-                            <td> 20.000 </td>
-                            <td> 60.000 </td>
-                            <td> Felipe Clavijo </td>
-                            <td> 12345600 </td>
-                            <td> Viviana Mejia </td>
-                            <td><button type="button" className="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#modalEditar"
-                                cliente="Felipe Clavijo" data-bs-whatever="20.000"><FontAwesomeIcon icon={faPenSquare}/></button></td>
-                        </tr>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            {
+                                                Object.keys(venta.productos).forEach((key) => {
+                                                     return (
+                                                        <tr key={key}>
+                                                            <th scope="row">{key}</th>
+                                                            <td>{venta.productos[key].precioUnitario}  </td>
+                                                            <td>{venta.productos[key].producto}  </td>
+                                                            <td>{venta.productos[key].cantidad}  </td>
+                                                            <td>{venta.productos[key].precioPorCantidad}  </td>
+                                                        </tr> 
+                                                    )  
+                            
+                                                })
 
+                                            }
+                                            
+                                            </tbody>
+                                        </table>
+                                    
+                                </td>
+                                <td>{venta.precioVenta}</td>
+                                <td>{venta.nombreCliente}</td>
+                                <td>{venta.idCliente}</td>
+                                <td>{venta.vendedor}</td>
+                                <td>
+                                {                               
+                                    <Link to={`/ListarVentas/${venta.id}`}>
+                                        <button className="btn btn-outline-primary btn-sm" title="Editar"><FontAwesomeIcon icon={faPenSquare}/></button>
+                                    </Link>
+                                }
+                                {                               
+                                    <Link to={`/ListarVentas/delete/${venta.id}`}>
+                                        <button className="btn btn-outline-danger btn-sm" title="Eliminar"><FontAwesomeIcon icon={faTimes}/></button>
+                                    </Link>
+                                }
+                                </td>
+                            </tr>)
+                        })
+                    }
                     </tbody>
                 </table>
             </div>
