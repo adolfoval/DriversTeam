@@ -60,40 +60,14 @@ function ListarVentas() {
                             <tr key={venta.id}>
                                 <th scope="row">{index + 1}</th>
                                 <td>{venta.estado}  </td>
-                                <td>fecha</td>
+                                <td>{venta.fecha ? (new Date(venta.fecha.seconds *1000).toLocaleString())  :""}</td>
                                 <td>
                                     
-                                        <table>
-                                            <thead>
-                                                <tr>
-                                                    <th scope="col">Id venta</th>
-                                                    <th scope="col">Precio Unitario</th>
-                                                    <th scope="col">Producto</th>
-                                                    <th scope="col">Cantidad</th>
-                                                    <th scope="col">TotalVenta</th>
-                                                    
-
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                            {
-                                                Object.keys(venta.productos).forEach((key) => {
-                                                     return (
-                                                        <tr key={key}>
-                                                            <th scope="row">{key}</th>
-                                                            <td>{venta.productos[key].precioUnitario}  </td>
-                                                            <td>{venta.productos[key].producto}  </td>
-                                                            <td>{venta.productos[key].cantidad}  </td>
-                                                            <td>{venta.productos[key].precioPorCantidad}  </td>
-                                                        </tr> 
-                                                    )  
-                            
-                                                })
-
-                                            }
-                                            
-                                            </tbody>
-                                        </table>
+                                {
+                                <Link to={`/Venta/${venta.id}`}>
+                                    Detalle venta
+                                </Link>
+                                }
                                     
                                 </td>
                                 <td>{venta.precioVenta}</td>
