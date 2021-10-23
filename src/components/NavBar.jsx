@@ -47,14 +47,8 @@ function NavBar(props) {
                                 </li>
                             }
 
-
-                            <li className="nav-item dropdown">
-                                <a className="nav-link dropdown-toggle" href="/" id="navbarScrollingDropdown" data-bs-toggle="dropdown"
-                                    aria-expanded="false">Administrar ventas</a>
-                                <ul className="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-                                    <li><NavLink activeClassName="active" className="dropdown-item" to="/RegistrarVentas">Registrar venta</NavLink></li>
-                                    <li><NavLink className="dropdown-item" to="/ListarVentas">Listar ventas</NavLink></li>
-                                </ul>
+                            <li className="navbar-nav mx-auto mb-2 mb-lg-0">
+                                <NavLink activeClassName="active" to="/ListarVentas" className="nav-link" aria-expanded="false"> Administrar ventas </NavLink>
                             </li>
 
                             {   rol === "Vendedor" ?

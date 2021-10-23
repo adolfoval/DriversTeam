@@ -7,7 +7,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // import { BrowserRouter as Router, Switch, Route, useHistory } from "react-router-dom"
 // import Inicio from "./components/Inicio";
 // import ListarUsuarios from './components/usuarios_components/ListarUsuarios';
-// import RegistrarVentas from './components/ventas_componnets/RegistrarVentas';
 // import ListarVentas from './components/ventas_componnets/ListarVentas';
 // import ListarProductos from './components/productos_components/ListarProductos';
 // import Error404 from './components/Error404';

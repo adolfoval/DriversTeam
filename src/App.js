@@ -4,8 +4,8 @@ import NavBar from './components/NavBar';
 import Inicio from './components/Inicio';
 import Login from "./components/Login";
 import ListarUsuarios from './components/usuarios_components/ListarUsuarios';
-import RegistrarVentas from './components/ventas_componnets/RegistrarVentas';
 import ListarVentas from './components/ventas_componnets/ListarVentas';
+import ListarVentasEliminar from './components/ventas_componnets/ListarVentasEliminar';
 import ListarProductos from './components/productos_components/ListarProductos';
 import EliminarProductos from './components/productos_components/EliminarProductos';
 import VerVenta from './components/ventas_componnets/VerVenta'
@@ -45,8 +45,8 @@ function NavBarFunction(props) {
           <Route path="/" exact component ={Inicio}/>
           <Route path="/Login" exact component ={Login}/>
           <Route path="/ListarUsuarios" exact component ={ListarUsuarios}/>
-          <Route path="/RegistrarVentas" exact component ={RegistrarVentas}/>
           <Route path="/ListarVentas" exact component ={ListarVentas}/>
+          <Route path="/ListarVentas/delete/:id"  component ={ListarVentasEliminar}/>
           <Route path="/Venta/:id/delete/:item" component ={VerVentaEliminarItem}/>
           <Route path="/Venta/:id" component ={VerVenta}/>
           <Route path="/ListarProductos/delete/:id" component ={EliminarProductos}/>

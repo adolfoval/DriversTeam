@@ -108,7 +108,7 @@ function Login(props) {
 
             const doc = await consultarDatabase("usuarios");
             const info = doc.filter((document) => (
-                document.id === credenciales.uid
+                document.idc === credenciales.uid
             ));
             //console.log(info[0].rol, info[0].estado);
 
