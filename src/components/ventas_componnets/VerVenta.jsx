@@ -9,10 +9,14 @@ import { faPenSquare, faTimes } from "@fortawesome/free-solid-svg-icons";
 function VerVenta() {
     let idVenta = useParams();
     const [venta, setVenta] = useState([])
+    const [inputValue, setInputValue] = useState([])
   
     
     useEffect(() => {
-        cargarDatos()
+        cargarDatos().then(
+            setInputValue(venta.nombreCliente)
+
+        )
     }, [])
 
     const cargarDatos = async () => {
@@ -20,6 +24,10 @@ function VerVenta() {
         setVenta(ventaTemporal)
         
     }
+    const onChangeHandler = function (event) {
+        
+        setInputValue(event.target.value)
+      }
 
     return (
         <div>
@@ -27,13 +35,47 @@ function VerVenta() {
 
                 <h1 className="mb-4 text-center">Descripción Venta</h1>
                 <div className="container">
-                    <h6>ID Venta: {venta.id}</h6>
-                    <h6>Cliente: {venta.nombreCliente}</h6>
-                    <h6>ID Cliente: {venta.idCliente}</h6>
-                    <h6>Estado: {venta.estado}</h6>
-                    <h6>Fecha: {venta.fecha ? (new Date(venta.fecha.seconds *1000).toLocaleString())  :""}</h6>
-                    <h6>Vendedor: {venta.vendedor}</h6>
+
                     
+
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">ID Venta</span>
+                        </div>
+                        <input type="text" class="form-control" value={venta.id} disabled/>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Cliente</span>
+                        </div>
+                        <input type="text" class="form-control" value={inputValue} onChange={onChangeHandler}/>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">ID Cliente</span>
+                        </div>
+                        <input type="text" class="form-control" value={venta.idCliente} nChange={onChangeHandler} />
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Estado</span>
+                        </div>
+                        <input type="text" class="form-control" value={venta.estado} />
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Fecha</span>
+                        </div>
+                        <input type="text" class="form-control" value={venta.fecha ? (new Date(venta.fecha.seconds *1000).toLocaleString())  :""} />
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1">Vendedor</span>
+                        </div>
+                        <input type="text" class="form-control" value={venta.vendedor} />
+                    </div>
+
+
                 </div>
                 <br/>
                 <table className="table caption-top table-hover">
