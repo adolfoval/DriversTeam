@@ -1,6 +1,6 @@
 import { actualizarDocumentoDatabase, guardarDatabase} from '../../config/Firebase'
 
-function CrearEditarProductos() {
+function EditarProductos() {
 
     let id = useParams();
 
@@ -15,4 +15,4 @@ function CrearEditarProductos() {
     )
 }
 
-export default CrearEditarProductos
+export default EditarProductos
