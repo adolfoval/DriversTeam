@@ -110,7 +110,7 @@ export const crearUsuario = async (email, password) => {
         // console.log(credencialesUsuario.user);
         // console.log(credencialesUsuario.user.uid);
         const user = {
-            id: credencialesUsuario.user.uid,
+            idc: credencialesUsuario.user.uid,
             email: credencialesUsuario.user.email,
             rol: "Ninguno",
             estado: "Pendiente"
