@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import * as bootstrap from 'bootstrap';
+// import * as bootstrap from 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import Login from './components/Login';
 // import { BrowserRouter as Router, Switch, Route, useHistory } from "react-router-dom"

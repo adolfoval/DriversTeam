@@ -22,7 +22,7 @@ function ListarProductos() {
 
     }
 
-    const handleGuardarProducto =async (e)=>{
+    const handleGuardarProducto =async ()=>{
         // e.preventDefault()
 
         const producto = {
@@ -31,10 +31,9 @@ function ListarProductos() {
             valorUnitario
         }
 
+        console.log("guardando")
+
         await guardarDatabase('productos', producto) 
-        setDescripcion('')
-        setValorUnitario('')
-        setEstado('')
     }
 
     return (
@@ -72,8 +71,8 @@ function ListarProductos() {
                                         {/* <th scope="row">{index + 1}</th> */}
                                         <th>{producto.id}</th>
                                         <td>{producto.descripcion}</td>
-                                        <td>{producto.valorUnitario}</td>
                                         <td>{producto.estado}</td>
+                                        <td>{producto.valorUnitario}</td>
                                         <td>
                                             {
                                                 <Link to={`/ListarProductos/${producto.id}`}>
@@ -93,7 +92,7 @@ function ListarProductos() {
                 </table>
 
                 <div class="modal fade" id="modalRegistroProducto" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-                    aria-labelledby="exampleModalLabel" aria-hidden="true" data-bs-backdrop="static">
+                    aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -104,17 +103,17 @@ function ListarProductos() {
                                 <form id="formulario-registro-producto">
 
                                     <div class="mb">
-                                        <label for="descripcion" class="col-form-label">Descripción del Producto:</label>
-                                        <input type="text" class="form-control" id="descripcion" onChange={(e) => setDescripcion(e.target.value)}/>
+                                        <label class="col-form-label">Descripción del Producto:</label>
+                                        <input type="text" class="form-control" onChange={(e) => setDescripcion(e.target.value)}/>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="valor unit" class="col-form-label">Valor Unitario:</label>
-                                        <input type="number" class="form-control" id="valor-unitario" onChange={(e) => setValorUnitario(e.target.value)}/>
+                                        <label class="col-form-label">Valor Unitario:</label>
+                                        <input type="number" class="form-control" onChange={(e) => setValorUnitario(e.target.value)}/>
                                     </div>
 
                                     <div class="mb-3">
-                                        <label for="message-text" class="col-form-label">Estado:</label>
-                                        <select class="form-select" id="estadoProducto" aria-label="Default select example" onChange={(e) => setEstado(e.target.value)}>
+                                        <label class="col-form-label">Estado:</label>
+                                        <select class="form-select" aria-label="Default select example" onChange={(e) => setEstado(e.target.value)}>
                                             <option selected disabled>Seleccione un estado</option>
                                             <option value="Disponible">Disponible</option>
                                             <option value="No disponible">No disponible</option>
@@ -132,6 +131,7 @@ function ListarProductos() {
                     </div>
             </div>
         </div>
+
     </div>
     )
 }
