@@ -3,7 +3,7 @@ import { initializeApp } from 'firebase/app'
 // Referencia a la base de datos
 import { getFirestore } from 'firebase/firestore'
 // Referencia al paquete de autenticacion
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup, getRedirectResult, onAuthStateChanged } from 'firebase/auth'
 // Metodos de interaccion con la base de datos
 import { addDoc, collection, getDocs, query, getDoc, doc, updateDoc, deleteDoc, where, limit } from 'firebase/firestore'
 
@@ -24,6 +24,7 @@ const firebaseConfig = {
 initializeApp(firebaseConfig);
 const database = getFirestore();
 export const auth = getAuth();
+const googleProvider = new GoogleAuthProvider();
 
 
 // Guardar base de datos
@@ -121,6 +122,34 @@ export const crearUsuario = async (email, password) => {
         throw new Error(e)
     }
 }
+//registrar con google
+export const crearUsuarioGoogle = async () => {
+
+    try {
+        const log = await signInWithPopup(auth, googleProvider);
+        const usu = {
+            id: log.user.uid,
+            email: log.user.email,
+            rol: "Ninguno",
+            estado: "Pendiente"
+        }
+        guardarDatabase("usuarios", usu);
+        return usu;
+    } catch (error) {
+        return error;
+
+    }
+}
+
+export const loginUsuariogoogle = async() =>{
+
+    try{
+        const log = await signInWithPopup(auth, googleProvider);
+        return log.user;
+    }catch(error){
+        return error;
+    }
+}
 
 // Login Usuarios
 export const loginUsuario = async (email, password) => {
@@ -134,12 +163,11 @@ export const loginUsuario = async (email, password) => {
         //   email: credencialesUsuario.user.email
         // }
         // usuario = user
-
         return credencialesUsuario.user
 
     } catch (e) {
 
-        console.log(new Error(e),"a");
+        console.log(new Error(e), "a");
         <Route exact path="/Login">
             <Redirect to="/Login" />
         </Route>
@@ -177,35 +205,18 @@ export const datosUsuario = async () => {
     }
 }
 
-
-// el.addEventListener('click', function)
-// Usuario Activo
-/* onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, (user) => {
 
     if (user) {
-        usuario = user
-        console.log('El usuario logueado');
-    } else {
-        console.log('El usuario ya no esta logueado');
-        usuario = undefined
-    }
+        var uid = user.uid;
 
-}) */
-export function onAuthStateChanged() {
-    console.log('onAuthStateChanged>>>   ');
-    auth.onAuthStateChanged((user) => {
-      if (user) {
+        // console.log('auth User', uid, user)
+        console.log("logueado");
+        return user;
+    } else {
+        console.log('user SignOut');
+    }
+});
+
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
-        var uid = user.uid;
-  
-        console.log('auth User', uid, user)
-        return user;
-        // ...
-      } else {
-        // User is signed out
-        console.log('user SignOut');
-        // ...
-      }
-    });
-  }
