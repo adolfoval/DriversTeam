@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import "./css/login.css"
 import { useHistory } from "react-router-dom"
-import { consultarDatabase, crearUsuario, loginUsuario } from "../config/Firebase"
+import { consultarDatabase, crearUsuario, loginUsuario, crearUsuarioGoogle, loginUsuariogoogle } from "../config/Firebase"
 import { useInfo } from "../useInfo";
 import Swal from "sweetalert2";
 
@@ -15,12 +15,7 @@ function Login(props) {
     const history = useHistory();
     const [correoUser, setCorreo] = useInfo("correo", "");
     const [id, setId] = useInfo("id", "");
-    const [rol,setRol] = useInfo("rol", "");
-
-
-    const handleGoogle = (event) => {
-        event.preventDefault();
-    }
+    const [rol, setRol] = useInfo("rol", "");
 
     const handleRegistrar = (event) => {
         event.preventDefault();
@@ -95,6 +90,94 @@ function Login(props) {
         setCrearUsu(true);
     }
 
+    const handleGoogle = async (event) => {
+        event.preventDefault();
+        console.log("Me ha clickeado google!!");
+        const user = await crearUsuarioGoogle();
+        console.log(user);
+
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Usuario creado con exito',
+            showConfirmButton: false,
+            timer: 1500
+        });
+        setCrearUsu(false);
+
+    }
+
+    const handleGoogleIn = async (event) => {
+        event.preventDefault();
+        const credenciales = await loginUsuariogoogle();
+        // console.log(credenciales.uid, credenciales.email);
+
+
+        const users = await consultarDatabase("usuarios");
+        const info = users.filter((document) => (
+            credenciales.uid === document.id
+        ));
+            
+        if (info.length !== 0) {
+            setId(credenciales.uid);
+            setCorreo(credenciales.email);
+
+            if (info[0].estado !== "Autorizado" || info[0].estado === undefined) {
+                Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: 'Aun no esta autorizado su acceso.',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                return
+            } else {
+                setRol(info[0].rol);
+                props.func.setLog(true);
+                history.replace("/");
+
+                const Toast = Swal.mixin({
+                    toast: true,
+                    position: 'top-end',
+                    showConfirmButton: false,
+                    timer: 3000,
+                    timerProgressBar: true,
+                    didOpen: (toast) => {
+                        toast.addEventListener('mouseenter', Swal.stopTimer)
+                        toast.addEventListener('mouseleave', Swal.resumeTimer)
+                    }
+                });
+    
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Logueado'
+                });
+            }
+
+        } else {
+            // alert("No se ha logueado");
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
+
+            Toast.fire({
+                icon: 'error',
+                title: 'No se ha podido completar el proceso. correo no registrado'
+            })
+        }
+
+
+
+    }
+
     const handleSubmit = async (event) => {
 
         event.preventDefault();
@@ -119,7 +202,7 @@ function Login(props) {
                     title: 'Aun no esta autorizado su acceso.',
                     showConfirmButton: false,
                     timer: 1500
-                })
+                });
                 return
             } else {
                 setRol(info[0].rol);
@@ -141,12 +224,12 @@ function Login(props) {
                     toast.addEventListener('mouseenter', Swal.stopTimer)
                     toast.addEventListener('mouseleave', Swal.resumeTimer)
                 }
-            })
+            });
 
             Toast.fire({
                 icon: 'success',
                 title: 'Logueado'
-            })
+            });
 
         } else {
             // alert("No se ha logueado");
@@ -176,6 +259,7 @@ function Login(props) {
 
     const handleUsuario = (event) => {
         SetCorre(event.target.value);
+
     }
 
     const handleContrasenna = (event) => {
@@ -189,13 +273,21 @@ function Login(props) {
                 <form>
                     <input className="controls" type="email" validated="true" name="Usuario" value={correo} placeholder="Usuario" onChange={handleUsuario} />
                     <input className="controls from-control w-100 mb-2" value={contrasenna} type="password" name="Contraseña" placeholder="Contraseña" onChange={handleContrasenna} />
-                    {!crearUsu ? <input className="btn btn-outline-primary w-100" type="submit" value="Ingresar" onClick={handleSubmit} /> :
-                        <input className="btn btn-outline-primary w-100" type="submit" name="" value="Registrar" onClick={handleRegistrar} />}
+                    {!crearUsu ? <input className="btn btn-outline-primary w-100" type="submit" value="Ingresar" onClick={handleSubmit} />
+                        :
+                        <input className="btn btn-outline-primary w-100 mb-4" type="submit" name="" value="Registrar" onClick={handleRegistrar} />
+                    }
+                    {!crearUsu ? ""
+                        :
+                        <input className="btn btn-outline-success w-100" type="submit" name="" value="Registrar con google" onClick={handleGoogle} />
+                    }
+
                     {!crearUsu ? <p><button className="btn btn-outline" onClick={handleCrearUsu}>Clic para crear usuario</button></p>
                         : ""}
+
                     <div className="login-google">
 
-                        {!crearUsu ? <button id="button-login" onClick={handleGoogle} className="btn btn-outline-success btn-sm">Autenticacion en Google</button> :
+                        {!crearUsu ? <button id="button-login" onClick={handleGoogleIn} className="btn btn-outline-success btn-sm">Autenticacion en Google</button> :
                             ""}
                     </div>
                 </form>

@@ -13,6 +13,8 @@ import VerVentaEliminarItem from './components/ventas_componnets/VerVentaElimina
 import Error404 from './components/Error404';
 import { useInfo } from "./useInfo";
 import Error403 from "./components/Error403"
+import ModificarUsuario from './components/usuarios_components/ModificarUsuario';
+import EliminarUsuario from './components/usuarios_components/EliminarUsuario';
 
 
 
@@ -45,6 +47,8 @@ function NavBarFunction(props) {
           <Route path="/" exact component ={Inicio}/>
           <Route path="/Login" exact component ={Login}/>
           <Route path="/ListarUsuarios" exact component ={ListarUsuarios}/>
+          <Route path="/ModificarUsuario/:id/:correo/:rol/:estado" exact component ={ModificarUsuario}/>
+          <Route path="/EliminarUsuario/:id" exact component ={EliminarUsuario}/>
           <Route path="/ListarVentas" exact component ={ListarVentas}/>
           <Route path="/ListarVentas/delete/:id"  component ={ListarVentasEliminar}/>
           <Route path="/Venta/:id/delete/:item" component ={VerVentaEliminarItem}/>

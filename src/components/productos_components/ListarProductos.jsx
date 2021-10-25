@@ -1,24 +1,26 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, Link } from 'react'
 import { } from 'bootstrap'
-import { Link } from 'react-router-dom'
 import { consultarDatabase } from '../../config/Firebase'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenSquare, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { AgregarProducto } from './AgregarProducto';
+import { EditarProducto } from './EditarProductos';
 
 function ListarProductos() {
 
     const [listaProductos, setListaProductos] = useState([])
 
-    useEffect(() => {
-        cargarDatos()
-    }, [])
-
     const cargarDatos = async () => {
         const listaTemporal = await consultarDatabase('productos')
         setListaProductos(listaTemporal)
-
     }
+
+    useEffect(() => {
+        // console.log("bucle")
+        cargarDatos()
+    }, [])
+
+    // listaProductos
 
     return (
         <div>
@@ -51,6 +53,7 @@ function ListarProductos() {
                         {
 
                             listaProductos.map((producto, index) => {
+                                // listaProductos.map((producto, index) => {
                                 return (
                                     <tr key={producto.id}>
                                         {/* <th scope="row">{index + 1}</th> */}
@@ -59,20 +62,29 @@ function ListarProductos() {
                                         <td>{producto.estado}</td>
                                         <td>{producto.valorUnitario}</td>
                                         <td>
+                                            
+                                                {/* <Link to={`/ListarVentas/${producto.id}`} className="btn btn-outline-primary btn-sm" title="Editar"><FontAwesomeIcon icon={faPenSquare} />
+                                                </Link> */}
+                                            <button className="btn btn-outline-primary btn-sm" title="Editar" data-bs-toggle="modal" data-bs-target="#modalEditarProducto" user=""
+                                                data-bs-whatever="" ><FontAwesomeIcon icon={faPenSquare} />
+                                                
+                                                </button>
+                                                
+                                            
                                             {
-                                                <Link to={`/ListarProductos/${producto.id}`}>
-                                                    <button className="btn btn-outline-primary btn-sm" title="Editar"><FontAwesomeIcon icon={faPenSquare} /></button>
-                                                </Link>
+                                                // <Link to={`/ListarVentas/delete/${producto.id}`} className="btn btn-outline-danger btn-sm" title="Eliminar"><FontAwesomeIcon icon={faTimes} />
+                                                // </Link>
+                                                <button className="btn btn-outline-danger btn-sm" title="Eliminar"><FontAwesomeIcon icon={faTimes} />
+                                                
+                                                </button>
                                             }
-                                            {
-                                                <Link to={`/ListarProductos/delete/${producto.id}`}>
-                                                    <button className="btn btn-outline-danger btn-sm" title="Eliminar"><FontAwesomeIcon icon={faTimes} /></button>
-                                                </Link>
-                                            }
+                                            
                                         </td>
                                     </tr>)
                             })
                         }
+
+                        <EditarProducto />
                     </tbody>
                 </table>
             </div>
