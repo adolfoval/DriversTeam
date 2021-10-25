@@ -20,6 +20,7 @@ export const AgregarProducto = () => {
 
         setDescripcion('')
         setValorUnitario('')
+
     }
 
     return (

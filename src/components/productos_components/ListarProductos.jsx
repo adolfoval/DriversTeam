@@ -10,15 +10,14 @@ function ListarProductos() {
 
     const [listaProductos, setListaProductos] = useState([])
 
-    useEffect(() => {
-        cargarDatos()
-    }, [])
-
     const cargarDatos = async () => {
         const listaTemporal = await consultarDatabase('productos')
         setListaProductos(listaTemporal)
-
     }
+
+    useEffect(() => {
+        cargarDatos()
+    }, [listaProductos])
 
     return (
         <div>
@@ -51,6 +50,7 @@ function ListarProductos() {
                         {
 
                             listaProductos.map((producto, index) => {
+                                // listaProductos.map((producto, index) => {
                                 return (
                                     <tr key={producto.id}>
                                         {/* <th scope="row">{index + 1}</th> */}
