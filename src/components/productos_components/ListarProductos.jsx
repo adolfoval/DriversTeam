@@ -80,8 +80,8 @@ function ListarProductos() {
                                         {/* <th scope="row">{index + 1}</th> */}
                                         <th>{producto.id}</th>
                                         <td>{producto.descripcion}</td>
-                                        <td>{producto.estado}</td>
                                         <td>{producto.valorUnitario}</td>
+                                        <td>{producto.estado}</td>
                                         <td>
 
                                             <Link to={`/ListarProductos/actualizar/${producto.id}`} className="btn btn-outline-primary btn-sm" title="Editar">
