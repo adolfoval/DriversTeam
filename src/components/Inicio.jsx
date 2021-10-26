@@ -1,6 +1,5 @@
 import React from 'react';
 import "./css/Inicio.css"
-import {Link} from "react-router-dom";
 
 function Inicio() {
     return (

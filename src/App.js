@@ -53,6 +53,7 @@ function NavBarFunction(props) {
           <Route path="/ListarVentas/delete/:id"  component ={ListarVentasEliminar}/>
           <Route path="/Venta/:id/delete/:item" component ={VerVentaEliminarItem}/>
           <Route path="/Venta/:id" component ={VerVenta}/>
+          <Route path="/Venta" component ={VerVenta}/>
           <Route path="/ListarProductos/delete/:id" component ={EliminarProductos}/>
           <Route path="/ListarProductos" exact component ={ListarProductos}/>
           <Route path="/" exact component ={Login}/>

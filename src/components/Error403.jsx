@@ -5,7 +5,7 @@ import "./css/error404.css";
 
 function Error403() {
 
-    let location = useLocation();
+    useLocation();
     return (
         <div id="notfound">
 		<div className="notfound">

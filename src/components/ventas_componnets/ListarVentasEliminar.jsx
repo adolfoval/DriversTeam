@@ -1,41 +1,37 @@
-import React, { useEffect, useState } from 'react'
-import { useParams,Link } from "react-router-dom";
-import { consultarDocumentoDatabase,eliminarDocumentoDatabase } from '../../config/Firebase'
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenSquare, faTimes } from "@fortawesome/free-solid-svg-icons";
-
+import React from 'react'
+import { Redirect } from "react-router-dom";
+import { useParams } from "react-router";
+import { eliminarDocumentoDatabase } from '../../config/Firebase'
+import Swal from 'sweetalert2';
 
 
 function ListarVentasEliminar() {
 
     let {id} = useParams();
-    console.log(id);
 
-    const [venta, setVenta] = useState([])
-  
-    
-    useEffect(() => {
-        try{
-            cargarDatos()
-        }catch{
 
-        }
-        
-    }, [])
-
-    const cargarDatos = async () => {
-        const ventaTemporal = await consultarDocumentoDatabase('ventas',id)
-        setVenta(ventaTemporal)
-        await eliminarDocumentoDatabase('ventas',id).then(()=>{
-            console.log("elimino correctamente");
-        }).catch((e)=>{
-            console.log(e)
+    const deleteVenta = async () => {
+        await eliminarDocumentoDatabase('ventas',id)
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'center',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
         })
-        
+        Toast.fire({
+            icon: 'success',
+            title: 'Venta eliminado'
+        })
     }
+    deleteVenta();
 
     return (
-        <></>
+        <Redirect to="/ListarVentas" />
     )
 }
 

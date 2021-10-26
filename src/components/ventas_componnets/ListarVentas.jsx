@@ -34,9 +34,10 @@ function ListarVentas() {
                                 Agregar ventas
                             </a> --> */}
 
-                <button type="button" className="btn btn-outline-dark btn-sm " data-bs-toggle="modal" data-bs-target="#modalRegistroVenta">
+{/*                 <button type="button" className="btn btn-outline-dark btn-sm " >
                     Agregar venta
-                </button>
+                </button> */}
+                <Link to="/Venta" className="btn btn btn-dark">Agregar venta</Link>
 
                 <table className="table caption-top table-hover">
                     <thead>
@@ -44,7 +45,6 @@ function ListarVentas() {
                             <th scope="col">Id venta</th>
                             <th scope="col">Estado</th>
                             <th scope="col">Fecha</th>
-                            <th scope="col">Productos</th>
                             <th scope="col">Valor venta</th>
                             <th scope="col">Cliente</th>
                             <th scope="col">Id cliente</th>
@@ -61,23 +61,14 @@ function ListarVentas() {
                                 <th scope="row">{index + 1}</th>
                                 <td>{venta.estado}  </td>
                                 <td>{venta.fecha ? (new Date(venta.fecha.seconds *1000).toLocaleString())  :""}</td>
-                                <td>
-                                    
-                                {
-                                <Link to={`/Venta/${venta.id}`}>
-                                    Detalle venta
-                                </Link>
-                                }
-                                    
-                                </td>
                                 <td>{venta.precioVenta}</td>
                                 <td>{venta.nombreCliente}</td>
                                 <td>{venta.idCliente}</td>
                                 <td>{venta.vendedor}</td>
                                 <td>
                                 {                               
-                                    <Link to={`/ListarVentas/${venta.id}`}>
-                                        <button className="btn btn-outline-primary btn-sm" title="Editar"><FontAwesomeIcon icon={faPenSquare}/></button>
+                                    <Link to={`/Venta/${venta.id}`}>
+                                        <button className="btn btn-outline-primary btn-sm" title="Detalle venta"><FontAwesomeIcon icon={faPenSquare}/></button>
                                     </Link>
                                 }
                                 {                               
