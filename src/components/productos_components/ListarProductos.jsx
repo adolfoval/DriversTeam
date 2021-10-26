@@ -52,9 +52,9 @@ function ListarProductos() {
                  <div className="input-group mb-3">
                     <input  
                     className="form-control inputBuscar"
-                    value= "//{busqueda}"
+                    value= {busqueda}
                     placeholder="Búsqueda por:   Id, Descripción o Estado "
-                    onChange= "//{handleChange}"
+                    onChange= {handleChange}
                     />
                     
                 </div>
