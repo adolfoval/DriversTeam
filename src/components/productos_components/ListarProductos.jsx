@@ -10,17 +10,37 @@ import { faPenSquare, faTimes } from "@fortawesome/free-solid-svg-icons";
 function ListarProductos() {
 
     const [listaProductos, setListaProductos] = useState([])
+    const [tablaProductos, setTablaProductos]= useState([]);
+    const [busqueda, setBusqueda]= useState("");
 
     const cargarDatos = async () => {
         const listaTemporal = await consultarDatabase('productos')
         setListaProductos(listaTemporal)
+        setTablaProductos(listaTemporal)
 
     }
 
     useEffect(() => {
         cargarDatos()
     }, [])
-
+    
+    const handleChange=e=>{
+        setBusqueda(e.target.value);
+        filtrar(e.target.value);
+      }
+      
+      const filtrar=(terminoBusqueda)=>{
+        let resultadosBusqueda=tablaProductos.filter((elemento)=>{
+          if(elemento.id.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+          || elemento.descripcion.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+          || elemento.estado.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+          ){
+            return elemento;
+          }
+        });
+        setListaProductos(resultadosBusqueda);
+      }
+          
     return (
         <div>
             <div className="container align-self-center">
@@ -29,9 +49,14 @@ function ListarProductos() {
 
                 <h1 className="mb-4 text-center">Productos</h1>
 
-                <div className="input-group mb-3">
-                    <input type="text" className="form-control form-control-sm" placeholder="Id producto, Descripcion, Valor unitario, Estado " aria-label="Recipient's username" aria-describedby="button-addon2" />
-                    <button className="btn btn-outline-dark btn-sm " type="button" id="button-addon2">Buscar</button>
+                 <div className="input-group mb-3">
+                    <input  
+                    className="form-control inputBuscar"
+                    value={busqueda}
+                    placeholder="Búsqueda por:   Id, Descripción o Estado "
+                    onChange={handleChange}
+                    />
+                    
                 </div>
 
                 <Link to="ListarProductos/actualizar/agregar" type="button" className="btn btn-dark" >Agregar producto</Link>
