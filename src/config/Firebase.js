@@ -10,7 +10,7 @@ import { addDoc, collection, getDocs, query, getDoc, doc, updateDoc, deleteDoc, 
 import { Route, Redirect } from "react-router-dom"
 
 
-/* const firebaseConfig = {
+const firebaseConfig = {
     apiKey: "AIzaSyDCAa6J48jm7cEHdKJJt2Qzbu6jKVUg-Hc",
     authDomain: "driverspub.firebaseapp.com",
     projectId: "driverspub",
@@ -19,16 +19,16 @@ import { Route, Redirect } from "react-router-dom"
     appId: "1:716939539079:web:17d7255d86d33de5a1be22"
 
 
-}; */
-const firebaseConfig = {
-    apiKey: "AIzaSyC0lVGDuteAYM5kXHDIA1VkXxtfsAITlHk",
-    authDomain: "prueba-93dff.firebaseapp.com",
-    projectId: "prueba-93dff",
-    storageBucket: "prueba-93dff.appspot.com",
-    messagingSenderId: "431184930810",
-    appId: "1:431184930810:web:5c4e9fee3bce05572ce643",
-    measurementId: "G-H6NM5RKKVY"
-  };
+};
+// const firebaseConfig = {
+//     apiKey: "AIzaSyC0lVGDuteAYM5kXHDIA1VkXxtfsAITlHk",
+//     authDomain: "prueba-93dff.firebaseapp.com",
+//     projectId: "prueba-93dff",
+//     storageBucket: "prueba-93dff.appspot.com",
+//     messagingSenderId: "431184930810",
+//     appId: "1:431184930810:web:5c4e9fee3bce05572ce643",
+//     measurementId: "G-H6NM5RKKVY"
+//   };
 
 initializeApp(firebaseConfig);
 const database = getFirestore();
