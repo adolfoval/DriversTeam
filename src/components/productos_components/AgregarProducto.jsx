@@ -1,11 +1,15 @@
 import React, {useState} from 'react'
 import { guardarDatabase } from '../../config/Firebase'
+import { useHistory, Redirect } from "react-router-dom";
+import cargarDatos from "./ListarProductos";
 
 export const AgregarProducto = () => {
+// async function AgregarProducto() {
 
     const [descripcion, setDescripcion] = useState('')
     const [estado, setEstado] = useState('')
     const [valorUnitario, setValorUnitario] = useState('')
+    // const history = useHistory()
 
     const handleGuardarProducto = async (e) => {
         e.preventDefault()
@@ -21,6 +25,12 @@ export const AgregarProducto = () => {
         setDescripcion('')
         setValorUnitario('')
 
+        // history.push('/ListarProductos')
+
+        // return (<Redirect to = "/" />)
+
+        cargarDatos()
+    
     }
 
     return (
@@ -57,7 +67,9 @@ export const AgregarProducto = () => {
 
                             <div className="modal-footer">
                                 <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                <button type="submit" className="btn btn-success" data-bs-dismiss="modal" onClick={handleGuardarProducto}>Confirmar</button>
+                                <button type="submit" className="btn btn-success" data-bs-dismiss="modal" onClick={handleGuardarProducto}>Confirmar
+                                
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -66,3 +78,5 @@ export const AgregarProducto = () => {
         </div>
     )
 }
+
+// export default AgregarProducto

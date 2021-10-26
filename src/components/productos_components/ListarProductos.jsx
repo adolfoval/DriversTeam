@@ -1,43 +1,65 @@
-import React, { useEffect, useState, Link } from 'react'
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { } from 'bootstrap'
 import { consultarDatabase } from '../../config/Firebase'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenSquare, faTimes } from "@fortawesome/free-solid-svg-icons";
-import { AgregarProducto } from './AgregarProducto';
-import { EditarProducto } from './EditarProductos';
+// import {AgregarProducto} from './AgregarProducto';
+// import { EditarProducto } from './EditarProductos';
 
 function ListarProductos() {
 
     const [listaProductos, setListaProductos] = useState([])
+    const [tablaProductos, setTablaProductos]= useState([]);
+    const [busqueda, setBusqueda]= useState("");
 
     const cargarDatos = async () => {
         const listaTemporal = await consultarDatabase('productos')
         setListaProductos(listaTemporal)
+        setTablaProductos(listaTemporal)
+
     }
 
     useEffect(() => {
-        // console.log("bucle")
         cargarDatos()
     }, [])
-
-    // listaProductos
-
+    
+    const handleChange=e=>{
+        setBusqueda(e.target.value);
+        filtrar(e.target.value);
+      }
+      
+      const filtrar=(terminoBusqueda)=>{
+        let resultadosBusqueda=tablaProductos.filter((elemento)=>{
+          if(elemento.id.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+          || elemento.descripcion.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+          || elemento.estado.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+          ){
+            return elemento;
+          }
+        });
+        setListaProductos(resultadosBusqueda);
+      } 
+          
     return (
         <div>
             <div className="container align-self-center">
 
+                <br />
 
                 <h1 className="mb-4 text-center">Productos</h1>
 
-                <div className="input-group mb-3">
-                    <input type="text" className="form-control form-control-sm" placeholder="Id producto, Descripcion, Valor unitario, Estado " aria-label="Recipient's username" aria-describedby="button-addon2" />
-                    <button className="btn btn-outline-dark btn-sm " type="button" id="button-addon2">Buscar</button>
+                 <div className="input-group mb-3">
+                    <input  
+                    className="form-control inputBuscar"
+                    value= {busqueda}
+                    placeholder="Búsqueda por:   Id, Descripción o Estado "
+                    onChange= {handleChange}
+                    />
+                    
                 </div>
 
-                <button type="button" className="btn btn-dark" data-bs-toggle="modal" data-bs-target="#modalRegistroProducto" user=""
-                    data-bs-whatever="">Agregar producto</button>
-
-                <AgregarProducto />
+                <Link to="ListarProductos/actualizar/agregar" type="button" className="btn btn-dark" >Agregar producto</Link>
 
                 <table className="table caption-top table-hover">
                     <thead>
@@ -51,9 +73,8 @@ function ListarProductos() {
                     </thead>
                     <tbody>
                         {
-
-                            listaProductos.map((producto, index) => {
-                                // listaProductos.map((producto, index) => {
+                            listaProductos.map((producto) => {
+                            // listaProductos.map((producto, index) => {
                                 return (
                                     <tr key={producto.id}>
                                         {/* <th scope="row">{index + 1}</th> */}
@@ -62,29 +83,22 @@ function ListarProductos() {
                                         <td>{producto.estado}</td>
                                         <td>{producto.valorUnitario}</td>
                                         <td>
-                                            
-                                                {/* <Link to={`/ListarVentas/${producto.id}`} className="btn btn-outline-primary btn-sm" title="Editar"><FontAwesomeIcon icon={faPenSquare} />
-                                                </Link> */}
-                                            <button className="btn btn-outline-primary btn-sm" title="Editar" data-bs-toggle="modal" data-bs-target="#modalEditarProducto" user=""
-                                                data-bs-whatever="" ><FontAwesomeIcon icon={faPenSquare} />
-                                                
-                                                </button>
-                                                
-                                            
-                                            {
-                                                // <Link to={`/ListarVentas/delete/${producto.id}`} className="btn btn-outline-danger btn-sm" title="Eliminar"><FontAwesomeIcon icon={faTimes} />
-                                                // </Link>
-                                                <button className="btn btn-outline-danger btn-sm" title="Eliminar"><FontAwesomeIcon icon={faTimes} />
-                                                
-                                                </button>
-                                            }
-                                            
+
+                                            <Link to={`/ListarProductos/actualizar/${producto.id}`} className="btn btn-outline-primary btn-sm" title="Editar">
+                                                <FontAwesomeIcon icon={faPenSquare} />
+                                                </Link>
+
+
+
+                                            <Link to={`/ListarProductos/eliminar/${producto.id}`} className="btn btn-outline-danger btn-sm" title="Eliminar">
+                                                <FontAwesomeIcon icon={faTimes} />
+                                                </Link>
+
+
                                         </td>
                                     </tr>)
                             })
                         }
-
-                        <EditarProducto />
                     </tbody>
                 </table>
             </div>

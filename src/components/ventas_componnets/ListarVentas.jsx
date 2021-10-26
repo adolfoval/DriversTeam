@@ -3,11 +3,14 @@ import { Link } from 'react-router-dom'
 import { consultarDatabase } from '../../config/Firebase'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenSquare, faTimes } from "@fortawesome/free-solid-svg-icons";
-
+//import { } from 'bootstrap'
 
 function ListarVentas() {
 
     const [listaVentas, setListaVentas] = useState([])
+    const [tablaVentas, setTablaVentas]= useState([]);
+    const [busqueda, setBusqueda]= useState("");
+
     useEffect(() => {
         cargarDatos()
     }, [])
@@ -15,8 +18,27 @@ function ListarVentas() {
     const cargarDatos = async () => {
         const listaTemporal = await consultarDatabase('ventas')
         setListaVentas(listaTemporal)
-        
+        setTablaVentas(listaTemporal)
     }
+
+    const handleChange=e=>{
+        setBusqueda(e.target.value);
+        filtrar(e.target.value);
+      }
+      
+      const filtrar=(terminoBusqueda)=>{
+        let resultadosBusqueda=tablaVentas.filter((elemento)=>{
+          if(elemento.estado.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+          || elemento.idCliente.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+          || elemento.nombreCliente.toString().toLowerCase().includes(terminoBusqueda.toLowerCase())
+          ){
+            return elemento;
+          }
+        });
+        setListaVentas(resultadosBusqueda);
+      }
+
+
 
     return (
         <div>
@@ -26,8 +48,13 @@ function ListarVentas() {
                 <h1 className="mb-4 text-center">Ventas</h1>
 
                 <div className="input-group mb-3">
-                    <input type="text" className="form-control form-control-sm" placeholder="Id venta, Id cliente, Cliente " aria-label="Recipient's username" aria-describedby="button-addon2" />
-                    <button className="btn btn-outline-dark btn-sm " type="button" id="button-addon2">Buscar</button>
+                    <input  
+                    className="form-control inputBuscar"
+                    value={busqueda}
+                    placeholder="Búsqueda por:   Cliente, Id Cliente o Estado "
+                    onChange={handleChange}
+                    />
+                    
                 </div>
 
                 {/* <!-- <a className="btn btn-dark" href="formulario_ventas.html">

@@ -3,20 +3,18 @@ import { eliminarDocumentoDatabase } from '../../config/Firebase'
 import { useParams, Redirect } from "react-router-dom";
 import Swal from 'sweetalert2'
 
-async function EliminarProductos() {
-    let id = useParams();
+function EliminarProductos() {
+    const id = useParams();
     
-    const eliminar = async () => {
-      await eliminarDocumentoDatabase ("productos",id.id)
-      console.log(eliminar);
-
-      
+    const eliminarProducto = async () => {
+      await eliminarDocumentoDatabase ("productos", id.id)
+      // console.log(eliminarProducto);
   
       const Toast = Swal.mixin({
           toast: true,
           position: 'top-end',
           showConfirmButton: false,
-          timer: 3000,
+          timer: 1000,
           timerProgressBar: true,
           didOpen: (toast) => {
             toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -26,16 +24,13 @@ async function EliminarProductos() {
         
         Toast.fire({
           icon: 'success',
-          title: eliminar
+          title: 'Producto eliminado'
         }) 
     }
-    eliminar();
-    
 
-      
-      
-      return (
-          /* eliminarDocumentoDatabase()  */       
+    eliminarProducto();
+
+      return (       
           <Redirect to="/ListarProductos" />
     )
 }

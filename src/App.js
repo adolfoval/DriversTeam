@@ -8,6 +8,7 @@ import ListarVentas from './components/ventas_componnets/ListarVentas';
 import ListarVentasEliminar from './components/ventas_componnets/ListarVentasEliminar';
 import ListarProductos from './components/productos_components/ListarProductos';
 import EliminarProductos from './components/productos_components/EliminarProductos';
+import {EditarProductos} from './components/productos_components/EditarProductos';
 import VerVenta from './components/ventas_componnets/VerVenta'
 import VerVentaEliminarItem from './components/ventas_componnets/VerVentaEliminarItem'
 import Error404 from './components/Error404';
@@ -53,9 +54,11 @@ function NavBarFunction(props) {
           <Route path="/ListarVentas/delete/:id"  component ={ListarVentasEliminar}/>
           <Route path="/Venta/:id/delete/:item" component ={VerVentaEliminarItem}/>
           <Route path="/Venta/:id" component ={VerVenta}/>
-          <Route path="/Venta" component ={VerVenta}/>
-          <Route path="/ListarProductos/delete/:id" component ={EliminarProductos}/>
-          <Route path="/ListarProductos" exact component ={ListarProductos}/>
+          <Route path="/Venta/" component ={VerVenta}/>
+          <Route path="/ListarProductos" exact component={ListarProductos} />
+          <Route path="/ListarProductos/actualizar/:id" exact component ={EditarProductos} />
+          <Route path="/ListarProductos/actualizar/agregar" component={EditarProductos}/>
+          <Route path="/ListarProductos/eliminar/:id" component={EliminarProductos} />
           <Route path="/" exact component ={Login}/>
           <Route path="*" component ={Error404}/>
           <Route path="/Error403" component ={Error403}/>
