@@ -10,13 +10,13 @@ import { faPenSquare, faTimes } from "@fortawesome/free-solid-svg-icons";
 function ListarProductos() {
 
     const [listaProductos, setListaProductos] = useState([])
-    //const [tablaProductos, setTablaProductos]= useState([]);
-    //const [busqueda, setBusqueda]= useState("");
+    const [tablaProductos, setTablaProductos]= useState([]);
+    const [busqueda, setBusqueda]= useState("");
 
     const cargarDatos = async () => {
         const listaTemporal = await consultarDatabase('productos')
         setListaProductos(listaTemporal)
-        //setTablaProductos(listaTemporal)
+        setTablaProductos(listaTemporal)
 
     }
 
@@ -24,7 +24,7 @@ function ListarProductos() {
         cargarDatos()
     }, [])
     
-    /*const handleChange=e=>{
+    const handleChange=e=>{
         setBusqueda(e.target.value);
         filtrar(e.target.value);
       }
@@ -39,7 +39,7 @@ function ListarProductos() {
           }
         });
         setListaProductos(resultadosBusqueda);
-      } */
+      } 
           
     return (
         <div>
